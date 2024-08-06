@@ -1,5 +1,6 @@
 import STT from '../STT';
 import Clear from './Clear';
+import Comfy from './Comfy';
 import FileUpload from './FileUpload';
 import History from './History';
 import ModelSwitch from './ModelSwitch';
@@ -9,6 +10,7 @@ import Tools from './Tools';
 
 export const actionMap = {
   clear: Clear,
+  comfy: Comfy,
   fileUpload: FileUpload,
   history: History,
   model: ModelSwitch,
@@ -30,4 +32,5 @@ export const getLeftActionList: getActionList = (mobile) =>
     Boolean,
   ) as ActionKeys[];
 
-export const getRightActionList: getActionList = () => ['clear'].filter(Boolean) as ActionKeys[];
+export const getRightActionList: getActionList = () =>
+  ['clear', 'comfy'].filter(Boolean) as ActionKeys[];

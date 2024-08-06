@@ -1,6 +1,6 @@
 import { ActionIconGroupItems } from '@lobehub/ui/es/ActionIconGroup';
 import { css, cx } from 'antd-style';
-import { LanguagesIcon, Play } from 'lucide-react';
+import { Camera, LanguagesIcon, Play } from 'lucide-react';
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -33,5 +33,11 @@ export const useCustomActions = () => {
     label: t('tts.action'),
   } as ActionIconGroupItems;
 
-  return useMemo(() => ({ translate, tts }), []);
+  const comfy = {
+    icon: Camera,
+    key: 'comfy',
+    label: 'Comfy',
+  } as ActionIconGroupItems;
+
+  return useMemo(() => ({ comfy, translate, tts }), [comfy, translate, tts]);
 };

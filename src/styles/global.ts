@@ -45,4 +45,8 @@ export default ({ token }: { prefixCls: string; token: Theme }) => css`
       background-color: transparent;
     }
   }
+
+  .target-chat-item > div:nth-child(2) > div:nth-child(2) > div:nth-child(1) {
+    background-color: ${token.colorBgLayout};
+  }
 `;

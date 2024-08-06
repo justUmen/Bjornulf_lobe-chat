@@ -113,6 +113,13 @@ const VirtualizedList = memo<VirtualizedListProps>(({ mobile }) => {
         itemContent={itemContent}
         overscan={overscan}
         ref={virtuosoRef}
+        style={{
+          backgroundAttachment: 'fixed',
+          backgroundImage: `url(${sessionId ? `Bjornulf_backgrounds/${sessionId}.png` : 'none'})`,
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: 'auto 100%',
+        }}
       />
       <AutoScroll
         atBottom={atBottom}

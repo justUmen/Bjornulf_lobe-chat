@@ -43,4 +43,7 @@ export const API_ENDPOINTS = mapWithBasePath({
   tts: '/api/openai/tts',
   edge: '/api/tts/edge-speech',
   microsoft: '/api/tts/microsoft-speech',
+
+  //Bjornulf save-image
+  saveimage: '/api/save-image',
 });

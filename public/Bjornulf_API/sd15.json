@@ -1,0 +1,79 @@
+{
+  "47": {
+    "inputs": {
+      "ckpt_name": "SD1.5/picxReal_10.safetensors"
+    },
+    "class_type": "CheckpointLoaderSimple",
+    "_meta": {
+      "title": "Load Checkpoint"
+    }
+  },
+  "48": {
+    "inputs": {
+      "seed": 933397385572250,
+      "steps": 20,
+      "cfg": 8,
+      "sampler_name": "euler",
+      "scheduler": "normal",
+      "denoise": 1,
+      "model": ["47", 0],
+      "positive": ["49", 0],
+      "negative": ["50", 0],
+      "latent_image": ["51", 0]
+    },
+    "class_type": "KSampler",
+    "_meta": {
+      "title": "KSampler"
+    }
+  },
+  "49": {
+    "inputs": {
+      "text": "BJORNULF_LOBECHAT_PROMPT",
+      "clip": ["47", 1]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Prompt)"
+    }
+  },
+  "50": {
+    "inputs": {
+      "text": "",
+      "clip": ["47", 1]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Prompt)"
+    }
+  },
+  "51": {
+    "inputs": {
+      "width": 512,
+      "height": 512,
+      "batch_size": 1
+    },
+    "class_type": "EmptyLatentImage",
+    "_meta": {
+      "title": "Empty Latent Image"
+    }
+  },
+  "52": {
+    "inputs": {
+      "samples": ["48", 0],
+      "vae": ["47", 2]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "VAE Decode"
+    }
+  },
+  "61": {
+    "inputs": {
+      "image": ["52", 0]
+    },
+    "class_type": "Bjornulf_SaveBjornulfLobeChat",
+    "_meta": {
+      "title": "🖼💬 Save image for Bjornulf LobeChat"
+    }
+  }
+}

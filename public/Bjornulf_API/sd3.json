@@ -1,0 +1,130 @@
+{
+  "13": {
+    "inputs": {
+      "shift": 3,
+      "model": ["252", 0]
+    },
+    "class_type": "ModelSamplingSD3",
+    "_meta": {
+      "title": "ModelSamplingSD3"
+    }
+  },
+  "231": {
+    "inputs": {
+      "samples": ["48", 0],
+      "vae": ["252", 2]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "VAE Decode"
+    }
+  },
+  "252": {
+    "inputs": {
+      "ckpt_name": "SD3/sd3_medium_incl_clips_t5xxlfp8.safetensors"
+    },
+    "class_type": "CheckpointLoaderSimple",
+    "_meta": {
+      "title": "Load Checkpoint"
+    }
+  },
+  "293": {
+    "inputs": {
+      "width": 1024,
+      "height": 1024,
+      "batch_size": 1
+    },
+    "class_type": "EmptySD3LatentImage",
+    "_meta": {
+      "title": "EmptySD3LatentImage"
+    }
+  },
+  "327": {
+    "inputs": {
+      "image": ["231", 0]
+    },
+    "class_type": "Bjornulf_SaveBjornulfLobeChat",
+    "_meta": {
+      "title": "🖼💬 Save image for Bjornulf LobeChat"
+    }
+  },
+  "48": {
+    "inputs": {
+      "seed": 423334039072538,
+      "steps": 28,
+      "cfg": 4.5,
+      "sampler_name": "uni_pc",
+      "scheduler": "ddim_uniform",
+      "denoise": 1,
+      "model": ["13", 0],
+      "positive": ["49", 0],
+      "negative": ["69", 0],
+      "latent_image": ["293", 0]
+    },
+    "class_type": "KSampler",
+    "_meta": {
+      "title": "KSampler"
+    }
+  },
+  "49": {
+    "inputs": {
+      "text": "BJORNULF_LOBECHAT_PROMPT",
+      "clip": ["252", 1]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Prompt)"
+    }
+  },
+  "67": {
+    "inputs": {
+      "conditioning": ["71", 0]
+    },
+    "class_type": "ConditioningZeroOut",
+    "_meta": {
+      "title": "ConditioningZeroOut"
+    }
+  },
+  "68": {
+    "inputs": {
+      "start": 0.1,
+      "end": 1,
+      "conditioning": ["67", 0]
+    },
+    "class_type": "ConditioningSetTimestepRange",
+    "_meta": {
+      "title": "ConditioningSetTimestepRange"
+    }
+  },
+  "69": {
+    "inputs": {
+      "conditioning_1": ["68", 0],
+      "conditioning_2": ["70", 0]
+    },
+    "class_type": "ConditioningCombine",
+    "_meta": {
+      "title": "Conditioning (Combine)"
+    }
+  },
+  "70": {
+    "inputs": {
+      "start": 0,
+      "end": 0.1,
+      "conditioning": ["71", 0]
+    },
+    "class_type": "ConditioningSetTimestepRange",
+    "_meta": {
+      "title": "ConditioningSetTimestepRange"
+    }
+  },
+  "71": {
+    "inputs": {
+      "text": "bad quality, poor quality, doll, disfigured, jpg, toy, bad anatomy, missing limbs, missing fingers, 3d, cgi",
+      "clip": ["252", 1]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Negative Prompt)"
+    }
+  }
+}

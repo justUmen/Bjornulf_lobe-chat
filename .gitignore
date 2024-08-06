@@ -61,3 +61,8 @@ robots.txt
 
 *.patch
 *.pdf
+
+# added by bjornulf
+public/*.png
+public/Bjornulf_backgrounds/*.png
+public/generated/*.png

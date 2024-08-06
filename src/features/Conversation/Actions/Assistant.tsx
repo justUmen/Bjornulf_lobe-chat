@@ -8,7 +8,7 @@ import { useCustomActions } from './customAction';
 
 export const AssistantActionsBar: RenderAction = memo(({ id, onActionClick, error, tools }) => {
   const { regenerate, edit, delAndRegenerate, copy, divider, del } = useChatListActionsBar();
-  const { translate, tts } = useCustomActions();
+  const { comfy, translate, tts } = useCustomActions();
   const hasTools = !!tools;
 
   if (id === 'default') return;
@@ -21,6 +21,7 @@ export const AssistantActionsBar: RenderAction = memo(({ id, onActionClick, erro
         edit,
         copy,
         divider,
+        comfy,
         tts,
         translate,
         divider,

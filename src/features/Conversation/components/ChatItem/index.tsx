@@ -116,7 +116,7 @@ const Item = memo<ChatListItemProps>(({ index, id }) => {
             />
           }
           avatar={item.meta}
-          className={cx(styles.message, isMessageLoading && styles.loading)}
+          className={cx(styles.message, 'target-chat-item', isMessageLoading && styles.loading)}
           editing={editing}
           error={error}
           errorMessage={<ErrorMessageExtra data={item} />}

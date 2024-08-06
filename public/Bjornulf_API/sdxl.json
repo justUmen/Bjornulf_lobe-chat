@@ -1,0 +1,88 @@
+{
+  "47": {
+    "inputs": {
+      "ckpt_name": "SDXL/realcartoonXL_v6.safetensors"
+    },
+    "class_type": "CheckpointLoaderSimple",
+    "_meta": {
+      "title": "Load Checkpoint"
+    }
+  },
+  "48": {
+    "inputs": {
+      "seed": 233358242971409,
+      "steps": 30,
+      "cfg": 7,
+      "sampler_name": "euler_ancestral",
+      "scheduler": "normal",
+      "denoise": 1,
+      "model": ["47", 0],
+      "positive": ["49", 0],
+      "negative": ["50", 0],
+      "latent_image": ["51", 0]
+    },
+    "class_type": "KSampler",
+    "_meta": {
+      "title": "KSampler"
+    }
+  },
+  "49": {
+    "inputs": {
+      "text": "BJORNULF_LOBECHAT_PROMPT",
+      "clip": ["47", 1]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Prompt)"
+    }
+  },
+  "50": {
+    "inputs": {
+      "text": "3d, cartoon, anime, sketches, (worst quality, bad quality, child, cropped:1.4) ((monochrome)), ((grayscale)), (rating_safe), (score_3_up, score_4_up, score_5_up, monochrome, vector art, blurry)",
+      "clip": ["47", 1]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Prompt)"
+    }
+  },
+  "51": {
+    "inputs": {
+      "width": 1024,
+      "height": 1024,
+      "batch_size": 1
+    },
+    "class_type": "EmptyLatentImage",
+    "_meta": {
+      "title": "Empty Latent Image"
+    }
+  },
+  "52": {
+    "inputs": {
+      "samples": ["48", 0],
+      "vae": ["47", 2]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "VAE Decode"
+    }
+  },
+  "61": {
+    "inputs": {
+      "image": ["52", 0]
+    },
+    "class_type": "Bjornulf_SaveBjornulfLobeChat",
+    "_meta": {
+      "title": "🖼💬 Save image for Bjornulf LobeChat"
+    }
+  },
+  "62": {
+    "inputs": {
+      "images": ["52", 0]
+    },
+    "class_type": "PreviewImage",
+    "_meta": {
+      "title": "Preview Image"
+    }
+  }
+}
