@@ -25,9 +25,15 @@ bun run start
 
 And the server will be running on `http://localhost:3210`, use the browser of your choice.
 
-## Usage
+## Examples
 
-![Screenshot](screenshot.png)
+### ComfyUI
+
+![Comfyui](screenshot.png)
+
+### Background
+
+![Background](screenshot2.png)
 
 ## Details
 
