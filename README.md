@@ -11,8 +11,8 @@
 Tested with Node v21.7.0, bun 1.0.30.
 
 ```
-git clone https://github.com/justUmen/lobe-chat
-cd lobe-chat
+git clone https://github.com/justUmen/Bjornulf_lobe-chat
+cd Bjornulf_lobe-chat
 bun install
 bun run build
 ```
@@ -73,10 +73,10 @@ CREATE DATABASE lobe_chat_db;
 CREATE USER youruser WITH PASSWORD 'yourpassword';
 ```
 
-### 5 - Grant all privileges on the 'lobe_chat_db' database to the yourusename' user:
+### 5 - Grant all privileges on the 'lobe_chat_db' database to the youruser' user:
 
 ```
-GRANT ALL PRIVILEGES ON DATABASE lobe_chat_db TO yourusename;
+GRANT ALL PRIVILEGES ON DATABASE lobe_chat_db TO youruser;
 ```
 
 ### 6 - Connect to the 'lobe_chat_db' database:
@@ -85,29 +85,35 @@ GRANT ALL PRIVILEGES ON DATABASE lobe_chat_db TO yourusename;
 \c lobe_chat_db
 ```
 
-### 7 - Grant usage and create privileges on the public schema to the 'yourusename' user:
+### 7 - Grant usage and create privileges on the public schema to the 'youruser' user:
 
 ```
-GRANT USAGE, CREATE ON SCHEMA public TO yourusename;
+GRANT USAGE, CREATE ON SCHEMA public TO youruser;
 ```
 
-### 8 - Grant all privileges on all tables in the public schema to the 'yourusename' user:
+### 8 - Grant all privileges on all tables in the public schema to the 'youruser' user:
 
 ```
-GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO yourusename;
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO youruser;
 ```
 
-### 9 - Grant all privileges on all sequences in the public schema to the 'yourusename' user:
+### 9 - Grant all privileges on all sequences in the public schema to the 'youruser' user:
 
 ```
-GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO yourusename;
+GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO youruser;
 ```
 
-### 10 - Set the default privileges for the 'yourusename' user to create tables and sequences:
+### 10 - Set the default privileges for the 'youruser' user to create tables and sequences:
 
 ```
-ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON TABLES TO yourusename;
-ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON SEQUENCES TO yourusename;
+ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON TABLES TO youruser;
+ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON SEQUENCES TO youruser;
+```
+
+### 11 - Leave psql:
+
+```
+\q
 ```
 
 # Example of configuration .env file in the root of your project for local database :
@@ -115,7 +121,7 @@ ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON SEQUENCES TO yourusename;
 ```
 NEXT_PUBLIC_SERVICE_MODE=server
 DATABASE_DRIVER=node
-DATABASE_URL=postgres://yourusename:yourpassword@localhost:5432/lobe_chat_db
+DATABASE_URL=postgres://youruser:yourpassword@localhost:5432/lobe_chat_db
 KEY_VAULTS_SECRET=MgMzt2U+lKwSCN9enMYmyvVRTFzsb60db8127035
 NEXT_AUTH_SECRET=RDD/HFZTSufylb61eb1117095t3KuO1FrHnviMATqAa=
 NEXT_AUTH_SSO_PROVIDERS=github
