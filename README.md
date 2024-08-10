@@ -1,4 +1,4 @@
-# Fork of lobe-chat v1.8.0
+# Fork of lobe-chat v1.9.6
 
 ## Description
 
@@ -47,7 +47,7 @@ And the server will be running on `http://localhost:3210`, use the browser of yo
 
 ## Optional but recommended :
 
-Lobechat is using by default storage in browser, but you can use a database to store the chat history. Here is a quick guide to use PostgreSQL :
+Lobechat is using by default storage in browser, but you can use a database to store the chat history. Here is a quick guide to use PostgreSQL : - You can also use the docker but I don't.-
 
 ### 1 - Install PostgreSQL
 

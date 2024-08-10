@@ -8,20 +8,20 @@ import { useCustomActions } from './customAction';
 
 export const AssistantActionsBar: RenderAction = memo(({ id, onActionClick, error, tools }) => {
   const { regenerate, edit, delAndRegenerate, copy, divider, del } = useChatListActionsBar();
-  const { comfy, translate, tts } = useCustomActions();
+  const { translate, tts } = useCustomActions(); //comfy, 
   const hasTools = !!tools;
 
   if (id === 'default') return;
 
   if (error) return <ErrorActionsBar onActionClick={onActionClick} />;
 
+        // comfy,
   return (
     <ActionIconGroup
       dropdownMenu={[
         edit,
         copy,
         divider,
-        comfy,
         tts,
         translate,
         divider,
