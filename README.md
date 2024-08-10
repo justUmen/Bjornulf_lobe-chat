@@ -8,7 +8,7 @@
 
 ## Installation (for example with bun, but can use npm or whatever...)
 
-Tested with Node v21.7.0, bun 1.0.30.
+Tested with Node v21.7.0, bun 1.0.30. (So you can `nvm install v21.7.0` for example, and `curl -fsSL https://bun.sh/install | bash -s "bun-v1.0.30"`)
 
 ```
 git clone https://github.com/justUmen/Bjornulf_lobe-chat
@@ -59,6 +59,13 @@ sudo apt install postgresql
 
 ```
 psql -U postgres
+```
+
+OR
+
+```
+sudo -i -u postgres
+psql
 ```
 
 ### 3 - Inside the PostgreSQL shell, create a new database, user, and grant privileges:
@@ -134,4 +141,4 @@ ACCESS_CODE=thispasswordisverylong
 
 - GITHUB_CLIENT_ID and GITHUB_CLIENT_SECRET are obtained by creating a new OAuth App on GitHub.\
   You can use <http://localhost:3210> as the homepage URL and the Authorization callback URL.\
-  Link Tutorial : [ssoproviders/github](https://lobehub.com/docs/self-hosting/advanced/sso-providers/github)
+  Link Tutorial : [ssoproviders/github](https://lobehub.com/docs/self-hosting/advanced/auth/next-auth/github)
