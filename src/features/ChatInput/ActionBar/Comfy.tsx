@@ -102,46 +102,50 @@ const Comfy = memo(() => {
     }
   }, [promptData]);
 
+  // const imageNameUrl = `http://localhost:8188/view?filename=output/api_next_image.txt&rand=${Math.random()}`;
+  // if (apiUrl === 'flux_schnell' || apiUrl === 'flux_dev') {
+  //   promptData['27:1'].inputs.noise_seed = seed; //for flux_schnell.json
+  // }
+  // else {
+  //   promptData['48'].inputs.seed = seed; //for sd15.json, sdxl.json, sd3.json
+  // }
   const sendToComfyUI = useCallback(async () => {
     if (promptData && inputMessage.trim() !== '') {
-      // const imageNameUrl = `http://localhost:8188/view?filename=output/api_next_image.txt&rand=${Math.random()}`;
       const seed = Math.floor(Math.random() * Number.MAX_SAFE_INTEGER);
-      // if (apiUrl === 'flux_schnell' || apiUrl === 'flux_dev') {
-      //   promptData['27:1'].inputs.noise_seed = seed; //for flux_schnell.json
-      // }
-      // else {
-      //   promptData['48'].inputs.seed = seed; //for sd15.json, sdxl.json, sd3.json
-      // }
-      // promptData['49'].inputs.text = inputMessage;
+
+      // Create a deep copy of promptData using structuredClone
+      const updatedPromptData = structuredClone(promptData);
+
       if (apiUrl.startsWith('flux_')) {
         // Find the key that contains 'noise_seed' in its inputs
-        const noiseInputKey = Object.keys(promptData).find(
-          (key) => promptData[key].inputs && 'noise_seed' in promptData[key].inputs,
+        const noiseInputKey = Object.keys(updatedPromptData).find(
+          (key) => updatedPromptData[key].inputs && 'noise_seed' in updatedPromptData[key].inputs,
         );
 
         if (noiseInputKey) {
-          promptData[noiseInputKey].inputs.noise_seed = seed;
+          updatedPromptData[noiseInputKey].inputs.noise_seed = seed;
         }
       } else {
         // Replace all occurrences of 'seed' in inputs with the new random seed
-        Object.keys(promptData).forEach((key) => {
-          if (promptData[key].inputs && 'seed' in promptData[key].inputs) {
-            promptData[key].inputs.seed = seed;
+        Object.keys(updatedPromptData).forEach((key) => {
+          if (updatedPromptData[key].inputs && 'seed' in updatedPromptData[key].inputs) {
+            updatedPromptData[key].inputs.seed = seed;
           }
         });
       }
 
       // Set the text input by finding the object with "BJORNULF_LOBECHAT_PROMPT"
-      const textInputKey = Object.keys(promptData).find(
+      const textInputKey = Object.keys(updatedPromptData).find(
         (key) =>
-          promptData[key].inputs && promptData[key].inputs.text === 'BJORNULF_LOBECHAT_PROMPT',
+          updatedPromptData[key].inputs &&
+          updatedPromptData[key].inputs.text === 'BJORNULF_LOBECHAT_PROMPT',
       );
 
       if (textInputKey) {
-        promptData[textInputKey].inputs.text = inputMessage;
+        updatedPromptData[textInputKey].inputs.text = inputMessage;
       }
 
-      const requestBody = JSON.stringify({ prompt: promptData });
+      const requestBody = JSON.stringify({ prompt: updatedPromptData });
       console.log('requestBody (sendToComfyUI) :', requestBody);
 
       setIsLoading(true);
@@ -161,12 +165,8 @@ const Comfy = memo(() => {
         await response.json();
         message.loading('Generating image... Please wait');
 
-        // Download the image
         const imageName = `generated_${Date.now()}.png`;
-
-        // Use the new API route to serve the image
         const dynamicImageUrl = `/api/serve-image?name=${encodeURIComponent(imageName)}`;
-
         const markdownImage = `![Generated Image](${dynamicImageUrl})`;
 
         const imageUrl = await pollForImage();

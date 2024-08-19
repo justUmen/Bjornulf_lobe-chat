@@ -2,6 +2,307 @@
 
 # Changelog
 
+### [Version 1.11.8](https://github.com/lobehub/lobe-chat/compare/v1.11.7...v1.11.8)
+
+<sup>Released on **2024-08-19**</sup>
+
+#### 💄 Styles
+
+- **misc**: Update zhipu models.
+
+<br/>
+
+<details>
+<summary><kbd>Improvements and Fixes</kbd></summary>
+
+#### Styles
+
+- **misc**: Update zhipu models, closes [#3509](https://github.com/lobehub/lobe-chat/issues/3509) ([e323b50](https://github.com/lobehub/lobe-chat/commit/e323b50))
+
+</details>
+
+<div align="right">
+
+[![](https://img.shields.io/badge/-BACK_TO_TOP-151515?style=flat-square)](#readme-top)
+
+</div>
+
+### [Version 1.11.7](https://github.com/lobehub/lobe-chat/compare/v1.11.6...v1.11.7)
+
+<sup>Released on **2024-08-18**</sup>
+
+#### 🐛 Bug Fixes
+
+- **misc**: Fix topic scroll issue.
+
+<br/>
+
+<details>
+<summary><kbd>Improvements and Fixes</kbd></summary>
+
+#### What's fixed
+
+- **misc**: Fix topic scroll issue, closes [#3505](https://github.com/lobehub/lobe-chat/issues/3505) ([c719c7a](https://github.com/lobehub/lobe-chat/commit/c719c7a))
+
+</details>
+
+<div align="right">
+
+[![](https://img.shields.io/badge/-BACK_TO_TOP-151515?style=flat-square)](#readme-top)
+
+</div>
+
+### [Version 1.11.6](https://github.com/lobehub/lobe-chat/compare/v1.11.5...v1.11.6)
+
+<sup>Released on **2024-08-18**</sup>
+
+#### ♻ Code Refactoring
+
+- **misc**: Refactor the `SITE_URL` to `APP_URL`.
+
+<br/>
+
+<details>
+<summary><kbd>Improvements and Fixes</kbd></summary>
+
+#### Code refactoring
+
+- **misc**: Refactor the `SITE_URL` to `APP_URL`, closes [#3504](https://github.com/lobehub/lobe-chat/issues/3504) ([46bdcea](https://github.com/lobehub/lobe-chat/commit/46bdcea))
+
+</details>
+
+<div align="right">
+
+[![](https://img.shields.io/badge/-BACK_TO_TOP-151515?style=flat-square)](#readme-top)
+
+</div>
+
+### [Version 1.11.5](https://github.com/lobehub/lobe-chat/compare/v1.11.4...v1.11.5)
+
+<sup>Released on **2024-08-18**</sup>
+
+#### ♻ Code Refactoring
+
+- **misc**: Refactor the fetch method to fix `response.undefined`.
+
+<br/>
+
+<details>
+<summary><kbd>Improvements and Fixes</kbd></summary>
+
+#### Code refactoring
+
+- **misc**: Refactor the fetch method to fix `response.undefined`, closes [#3493](https://github.com/lobehub/lobe-chat/issues/3493) ([30d0609](https://github.com/lobehub/lobe-chat/commit/30d0609))
+
+</details>
+
+<div align="right">
+
+[![](https://img.shields.io/badge/-BACK_TO_TOP-151515?style=flat-square)](#readme-top)
+
+</div>
+
+### [Version 1.11.4](https://github.com/lobehub/lobe-chat/compare/v1.11.3...v1.11.4)
+
+<sup>Released on **2024-08-18**</sup>
+
+#### 💄 Styles
+
+- **misc**: Add `SILICONCLOUD_MODEL_LIST` & `SILICONCLOUD_PROXY_URL` support for SiliconCloud.
+
+<br/>
+
+<details>
+<summary><kbd>Improvements and Fixes</kbd></summary>
+
+#### Styles
+
+- **misc**: Add `SILICONCLOUD_MODEL_LIST` & `SILICONCLOUD_PROXY_URL` support for SiliconCloud, closes [#3492](https://github.com/lobehub/lobe-chat/issues/3492) ([e41be6d](https://github.com/lobehub/lobe-chat/commit/e41be6d))
+
+</details>
+
+<div align="right">
+
+[![](https://img.shields.io/badge/-BACK_TO_TOP-151515?style=flat-square)](#readme-top)
+
+</div>
+
+### [Version 1.11.3](https://github.com/lobehub/lobe-chat/compare/v1.11.2...v1.11.3)
+
+<sup>Released on **2024-08-17**</sup>
+
+#### ♻ Code Refactoring
+
+- **misc**: Refactor PanelTitle and move commit from file uploading.
+
+<br/>
+
+<details>
+<summary><kbd>Improvements and Fixes</kbd></summary>
+
+#### Code refactoring
+
+- **misc**: Refactor PanelTitle and move commit from file uploading, closes [#3491](https://github.com/lobehub/lobe-chat/issues/3491) ([d03d9f6](https://github.com/lobehub/lobe-chat/commit/d03d9f6))
+
+</details>
+
+<div align="right">
+
+[![](https://img.shields.io/badge/-BACK_TO_TOP-151515?style=flat-square)](#readme-top)
+
+</div>
+
+### [Version 1.11.2](https://github.com/lobehub/lobe-chat/compare/v1.11.1...v1.11.2)
+
+<sup>Released on **2024-08-17**</sup>
+
+<br/>
+
+<details>
+<summary><kbd>Improvements and Fixes</kbd></summary>
+
+</details>
+
+<div align="right">
+
+[![](https://img.shields.io/badge/-BACK_TO_TOP-151515?style=flat-square)](#readme-top)
+
+</div>
+
+### [Version 1.11.1](https://github.com/lobehub/lobe-chat/compare/v1.11.0...v1.11.1)
+
+<sup>Released on **2024-08-15**</sup>
+
+#### 🐛 Bug Fixes
+
+- **misc**: Make S3 upload ACL setting optional.
+
+<br/>
+
+<details>
+<summary><kbd>Improvements and Fixes</kbd></summary>
+
+#### What's fixed
+
+- **misc**: Make S3 upload ACL setting optional, closes [#3464](https://github.com/lobehub/lobe-chat/issues/3464) ([53a0b47](https://github.com/lobehub/lobe-chat/commit/53a0b47))
+
+</details>
+
+<div align="right">
+
+[![](https://img.shields.io/badge/-BACK_TO_TOP-151515?style=flat-square)](#readme-top)
+
+</div>
+
+## [Version 1.11.0](https://github.com/lobehub/lobe-chat/compare/v1.10.1...v1.11.0)
+
+<sup>Released on **2024-08-14**</sup>
+
+#### ✨ Features
+
+- **misc**: Add 2 new models to openai provider.
+
+<br/>
+
+<details>
+<summary><kbd>Improvements and Fixes</kbd></summary>
+
+#### What's improved
+
+- **misc**: Add 2 new models to openai provider, closes [#3470](https://github.com/lobehub/lobe-chat/issues/3470) ([cc9ffdd](https://github.com/lobehub/lobe-chat/commit/cc9ffdd))
+
+</details>
+
+<div align="right">
+
+[![](https://img.shields.io/badge/-BACK_TO_TOP-151515?style=flat-square)](#readme-top)
+
+</div>
+
+### [Version 1.10.1](https://github.com/lobehub/lobe-chat/compare/v1.10.0...v1.10.1)
+
+<sup>Released on **2024-08-14**</sup>
+
+<br/>
+
+<details>
+<summary><kbd>Improvements and Fixes</kbd></summary>
+
+</details>
+
+<div align="right">
+
+[![](https://img.shields.io/badge/-BACK_TO_TOP-151515?style=flat-square)](#readme-top)
+
+</div>
+
+## [Version 1.10.0](https://github.com/lobehub/lobe-chat/compare/v1.9.8...v1.10.0)
+
+<sup>Released on **2024-08-14**</sup>
+
+#### ✨ Features
+
+- **misc**: Add SiliconCloud model provider.
+
+<br/>
+
+<details>
+<summary><kbd>Improvements and Fixes</kbd></summary>
+
+#### What's improved
+
+- **misc**: Add SiliconCloud model provider, closes [#3092](https://github.com/lobehub/lobe-chat/issues/3092) ([0781dc5](https://github.com/lobehub/lobe-chat/commit/0781dc5))
+
+</details>
+
+<div align="right">
+
+[![](https://img.shields.io/badge/-BACK_TO_TOP-151515?style=flat-square)](#readme-top)
+
+</div>
+
+### [Version 1.9.8](https://github.com/lobehub/lobe-chat/compare/v1.9.7...v1.9.8)
+
+<sup>Released on **2024-08-13**</sup>
+
+#### 💄 Styles
+
+- **misc**: Resize the image size in chat message.
+
+<br/>
+
+<details>
+<summary><kbd>Improvements and Fixes</kbd></summary>
+
+#### Styles
+
+- **misc**: Resize the image size in chat message, closes [#3462](https://github.com/lobehub/lobe-chat/issues/3462) ([37c7429](https://github.com/lobehub/lobe-chat/commit/37c7429))
+
+</details>
+
+<div align="right">
+
+[![](https://img.shields.io/badge/-BACK_TO_TOP-151515?style=flat-square)](#readme-top)
+
+</div>
+
+### [Version 1.9.7](https://github.com/lobehub/lobe-chat/compare/v1.9.6...v1.9.7)
+
+<sup>Released on **2024-08-13**</sup>
+
+<br/>
+
+<details>
+<summary><kbd>Improvements and Fixes</kbd></summary>
+
+</details>
+
+<div align="right">
+
+[![](https://img.shields.io/badge/-BACK_TO_TOP-151515?style=flat-square)](#readme-top)
+
+</div>
+
 ### [Version 1.9.6](https://github.com/lobehub/lobe-chat/compare/v1.9.5...v1.9.6)
 
 <sup>Released on **2024-08-09**</sup>
