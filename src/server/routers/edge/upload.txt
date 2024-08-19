@@ -1,0 +1,48 @@
+import { z } from 'zod';
+import { TRPCError } from '@trpc/server';
+import { passwordProcedure, router } from '@/libs/trpc';
+import { S3 } from '@/server/modules/S3';
+
+
+export const uploadRouter = router({
+  createS3PreSignedUrl: passwordProcedure
+    .input(z.object({ pathname: z.string() }))
+    .mutation(async ({ input, ctx }) => {
+      try {
+        console.log(`Attempting to create pre-signed URL for pathname: ${input.pathname}`);
+        console.log('Context:', JSON.stringify(ctx, null, 2));
+
+        const s3 = new S3();
+
+        // Check if the file already exists
+        const fileExists = await s3.fileExists(input.pathname);
+
+        if (fileExists) {
+          console.log(`File already exists: ${input.pathname}`);
+          // You might want to return a different response here,
+          // or maybe the URL to the existing file
+          return null;
+        }
+
+        const url = await s3.createPreSignedUrl(input.pathname);
+
+        console.log(`Pre-signed URL created successfully for pathname: ${input.pathname}`);
+
+        return url;
+      } catch (error) {
+        console.error('Error in createS3PreSignedUrl:', error);
+
+        if (error instanceof TRPCError) {
+          throw error;
+        }
+
+        throw new TRPCError({
+          cause: error,
+          code: 'INTERNAL_SERVER_ERROR',
+          message: 'An unexpected error occurred while creating the pre-signed URL',
+        });
+      }
+    }),
+});
+
+export type FileRouter = typeof uploadRouter;

@@ -4,7 +4,15 @@ import path from 'node:path';
 
 export const runtime = 'nodejs';
 
+// Create a promise that resolves after 1 second
+const delay = (ms: number) =>
+  new Promise<void>((resolve) => {
+    setTimeout(() => resolve(), ms);
+  });
+
 export async function POST(req: Request) {
+  // Wait for 3 seconds to be safe
+  await delay(3000);
   try {
     const { imageUrl, imageName } = await req.json();
 

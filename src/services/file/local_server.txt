@@ -1,0 +1,95 @@
+import { FilePreview, UploadFileParams } from '@/types/files';
+import { IFileService } from './type';
+
+interface CreateFileParams extends Omit<UploadFileParams, 'url'> {
+  url: string;
+}
+
+export class ServerService implements IFileService {
+  private apiUrl = '/api/files';
+
+  async createFile(params: UploadFileParams): Promise<FilePreview> {
+    const formData = new FormData();
+    
+    if (params.file instanceof File) {
+      formData.append('file', params.file);
+    }
+    
+    Object.keys(params).forEach(key => {
+      if (key !== 'file') {
+        formData.append(key, params[key]);
+      }
+    });
+
+    const response = await fetch(this.apiUrl, {
+      method: 'POST',
+      body: formData,
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to create file');
+    }
+
+    return response.json();
+  }
+
+  async getFile(id: string): Promise<Blob> {
+    const response = await fetch(`${this.apiUrl}/${id}`, {
+      method: 'GET',
+    });
+
+    if (!response.ok) {
+      throw new Error('File not found');
+    }
+
+    return response.blob();
+  }
+
+  async getFileMetadata(id: string): Promise<FilePreview> {
+    const response = await fetch(`${this.apiUrl}/${id}/metadata`, {
+      method: 'GET',
+    });
+
+    if (!response.ok) {
+      throw new Error('File metadata not found');
+    }
+
+    return response.json();
+  }
+
+  async removeFile(id: string): Promise<void> {
+    const response = await fetch(`${this.apiUrl}/${id}`, {
+      method: 'DELETE',
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to remove file');
+    }
+  }
+
+  async removeAllFiles(): Promise<void> {
+    const response = await fetch(this.apiUrl, {
+      method: 'DELETE',
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to remove all files');
+    }
+  }
+
+  async updateFileMetadata(id: string, metadata: Partial<FilePreview>): Promise<FilePreview> {
+    const response = await fetch(`${this.apiUrl}/${id}/metadata`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(metadata),
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to update file metadata');
+    }
+
+    return response.json();
+  }
+}

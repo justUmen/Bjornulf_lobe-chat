@@ -66,3 +66,4 @@ robots.txt
 public/*.png
 public/Bjornulf_backgrounds/*.png
 public/generated/*.png
+public/S3_minio/*

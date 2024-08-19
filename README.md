@@ -37,7 +37,7 @@ And the server will be running on `http://localhost:3210`, use the browser of yo
 
 ## Details
 
-- Need to use my Comfyui custom nodes : <https://github.com/justUmen/Bjornulf_custom_nodes>
+- Need to use my Comfyui custom nodes : <https://github.com/justUmen/ComfyUI-BjornulfNodes>
 - Can use my JSON workflows in the `public/Bjornulf_API/` folder to send to the ComfyUI, like for example `sd15.json` (Warning : You need to launch it manually at least one time before using it in lobe-chat.
 - It is using a link `output/BJORNULF_API_LAST_IMAGE.png` created by my custom node comfyui, that need to be used in the workflow. The generated image is then copied using this link to the `public/generated/` folder inside lobe-chat.
 

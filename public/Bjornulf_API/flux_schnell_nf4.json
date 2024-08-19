@@ -1,0 +1,104 @@
+{
+  "38:0": {
+    "inputs": {
+      "noise_seed": 873554588511485
+    },
+    "class_type": "RandomNoise",
+    "_meta": {
+      "title": "RandomNoise"
+    }
+  },
+  "38:1": {
+    "inputs": {
+      "sampler_name": "euler"
+    },
+    "class_type": "KSamplerSelect",
+    "_meta": {
+      "title": "KSamplerSelect"
+    }
+  },
+  "38:2": {
+    "inputs": {
+      "scheduler": "simple",
+      "steps": 4,
+      "denoise": 1,
+      "model": ["43", 0]
+    },
+    "class_type": "BasicScheduler",
+    "_meta": {
+      "title": "BasicScheduler"
+    }
+  },
+  "38:3": {
+    "inputs": {
+      "model": ["43", 0],
+      "conditioning": ["6", 0]
+    },
+    "class_type": "BasicGuider",
+    "_meta": {
+      "title": "BasicGuider"
+    }
+  },
+  "38:4": {
+    "inputs": {
+      "noise": ["38:0", 0],
+      "guider": ["38:3", 0],
+      "sampler": ["38:1", 0],
+      "sigmas": ["38:2", 0],
+      "latent_image": ["39", 0]
+    },
+    "class_type": "SamplerCustomAdvanced",
+    "_meta": {
+      "title": "SamplerCustomAdvanced"
+    }
+  },
+  "39": {
+    "inputs": {
+      "width": 1024,
+      "height": 1024,
+      "batch_size": 1
+    },
+    "class_type": "EmptyLatentImage",
+    "_meta": {
+      "title": "Empty Latent Image"
+    }
+  },
+  "43": {
+    "inputs": {
+      "ckpt_name": "FLUX/flux1-schnell-bnb-nf4.safetensors"
+    },
+    "class_type": "CheckpointLoaderNF4",
+    "_meta": {
+      "title": "CheckpointLoaderNF4"
+    }
+  },
+  "45": {
+    "inputs": {
+      "image": ["8", 0]
+    },
+    "class_type": "Bjornulf_SaveBjornulfLobeChat",
+    "_meta": {
+      "title": "🖼💬 Save image for Bjornulf LobeChat"
+    }
+  },
+  "6": {
+    "inputs": {
+      "text": "BJORNULF_LOBECHAT_PROMPT",
+      "clip": ["43", 1]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Prompt)"
+    }
+  },
+  "8": {
+    "inputs": {
+      "samples": ["38:4", 0],
+      "vae": ["43", 2]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "VAE Decode"
+    }
+  }
+}
