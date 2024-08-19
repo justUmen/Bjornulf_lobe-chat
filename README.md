@@ -1,4 +1,4 @@
-# Fork of lobe-chat v1.9.6
+# Fork of lobe-chat v1.11.8
 
 ## Description
 
