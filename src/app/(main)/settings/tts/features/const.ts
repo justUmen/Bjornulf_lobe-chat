@@ -9,6 +9,10 @@ export const opeanaiTTSOptions: SelectProps['options'] = [
     label: 'tts-1-hd',
     value: 'tts-1-hd',
   },
+  {
+    label: 'bjornulf_xtts',
+    value: 'bjornulf_xtts',
+  },
 ];
 
 export const opeanaiSTTOptions: SelectProps['options'] = [

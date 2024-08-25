@@ -166,5 +166,11 @@
     "object": "model",
     "created": 1686588896,
     "owned_by": "openai"
+  },
+  {
+    "id": "bjornulf_xtts",
+    "object": "model",
+    "created": 1686588897,
+    "owned_by": "bjornulf"
   }
 ]
