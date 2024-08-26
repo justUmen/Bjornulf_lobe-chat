@@ -73,7 +73,10 @@ export const useTTS = (content: string, config?: TTSConfig) => {
       break;
     }
   }
+  // console.log("content:",replaceDots(content));
+  // const replacedContent = replaceDots(content);
 
+  // return useSelectedTTS(content, {
   return useSelectedTTS(content, {
     ...config,
     ...options,

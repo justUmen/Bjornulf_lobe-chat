@@ -1,16 +1,44 @@
-# Fork of lobe-chat v1.12.14
+# Based on lobe-chat v1.12.19
 
-## Description
+lobe-chat + comfyui + xttsv2 + custom backgrounds + (postgresql + minio)\
+Recommended : Use `PostgreSQL` for storage of chat history and `minio` for storage of files.
 
-- Quick and dirty fork to enable lobe-chat to send ComfyUI api request + receive image link.
+## 🚀 My fork features :
 
-- Secondary : Allow to have custom background image based on session id, just use a .png with session id name, from your url. (public/Bjornulf_backgrounds/16a174d5-928f-42e0-b1a7-3bb329a1bfa2.png) -Require restart to take effect-
+### 1 - 🎨 Generate Images with ComfyUI
 
-- Optional but recommended : Use PostgreSQL for storage of chat history and minio for storage of files. (My comfyui images are NOT stored with minio, just in public folder for now...)  
+🏠 Quick and dirty fork to enable lobe-chat to send ComfyUI api request + receive image link.\
+⚠ For now my comfyui images are NOT stored with minio, just in public folder... ⚠\
+![Comfyui](screenshot.png)
 
-## Installation (for example with bun, but can use npm or whatever...)
+### 2 - 🗣️ Local Text-to-Speech with XTTS v2
 
-Tested with Node v21.7.0, bun 1.0.30. (So you can `nvm install v21.7.0` for example, and `curl -fsSL https://bun.sh/install | bash -s "bun-v1.0.30"`)
+🏠 Runs entirely on your device\
+Use `xttsv2` for local text-to-speech. (You need to install it and run the server separately)\
+Link = <https://github.com/daswer123/xtts-api-server>\
+⚠ For now only english is available, and 1 voice sample : `default.wav` ⚠\
+Details about the installation of XTTS are below.
+
+### 3 - 🌈 Custom Backgrounds
+
+🎨 Use your own images as background.\
+The custom background image based on session id, just use a .png with session id name, from your url.\
+Example : `public/Bjornulf_backgrounds/16a174d5-928f-42e0-b1a7-3bb329a1bfa2.png`\
+⚠ Require restart to take effect ⚠\
+![Background](screenshot2.png)
+
+## 📝 To do :
+
+- \[comfyui] If used with LLM, Comfyui also sends the local image link as useless tokens. (Not a huge waste, but a waste nevertheless.)
+- \[comfyui] Use minio for storage of comfyui images.
+- \[comfyui] Optimize loading time of comfyui images.
+- \[comfyui] Store and save options, like current json...
+- \[xtts] Allow to change the voices (several .wav samples) and change the language of the XTTS. (include auto detection of language ?, use default_en.wav for english, default_fr.wav for french, etc...)
+
+## 0 - Lobe-chat installation (for example with bun, but can use npm or whatever...)
+
+Tested with Node v21.7.0, bun 1.0.30. (So you can `nvm install v21.7.0` for example, and `curl -fsSL https://bun.sh/install | bash -s "bun-v1.0.30"`)\
+Choose where to download the project, and then install it there :
 
 ```
 git clone https://github.com/justUmen/Bjornulf_lobe-chat
@@ -25,31 +53,36 @@ bun run build
 bun run start
 ```
 
-And the server will be running on `http://localhost:3210`, use the browser of your choice.
+And the server should be running on `http://localhost:3210`, use the browser of your choice !!!
 
-## Examples
+## Details :
 
-### ComfyUI
-
-![Comfyui](screenshot.png)
-
-### Background
-
-![Background](screenshot2.png)
-
-## Details
-
-- Need to use my Comfyui custom nodes : <https://github.com/justUmen/ComfyUI-BjornulfNodes>
+- You need to use my Comfyui custom nodes : <https://github.com/justUmen/ComfyUI-BjornulfNodes>
 - Can use my JSON workflows in the `public/Bjornulf_API/` folder to send to the ComfyUI, like for example `sd15.json` (Warning : You need to launch it manually at least one time before using it in lobe-chat.
 - It is using a link `output/BJORNULF_API_LAST_IMAGE.png` created by my custom node comfyui, that need to be used in the workflow. The generated image is then copied using this link to the `public/generated/` folder inside lobe-chat.
 
-## Todo
+## Configuration :
 
-- If used with LLM, it also sends the local image link as useless tokens. (Not a huge waste, but a waste nevertheless.)
+### 2 - 🗣️ Local Text-to-Speech with XTTS v2
 
-## Optional : (Example with Ubuntu)
+Create a virtual environment and install the requirements, here is an example :
 
-Lobechat is using by default storage in browser, but you can use a database to store the chat history. Here is a quick guide to use PostgreSQL : - You can also use the docker but I don't.-
+```
+python -m venv /home/your_user/venv/xtts/
+source /home/your_user/venv/xtts/bin/activate
+mkdir -p /home/your_user/XTTS_SERVER
+cd /home/your_user/XTTS_SERVER
+pip install xtts_api_server
+python -m xtts_api_server
+```
+
+You also need a voice sample : `/home/your_user/XTTS_SERVER/speakers/default.wav`
+
+## Recommended : Use `PostgreSQL` for storage of chat history and `minio` for storage of files. (Example with Ubuntu)
+
+Lobechat is using by defaulta a client-side database (IndexedDB), but you can use a "real" database to store the chat history.\
+Here is a quick guide to use PostgreSQL anc configure it for lobe-chat. :\
+⚠ You can also use the docker but I don't like and never tried that. ⚠
 
 ### 1 - Install PostgreSQL and extension pgvector:
 
@@ -134,7 +167,8 @@ ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON SEQUENCES TO youruser;
 
 ### 12 - Use minio for local storage of files :
 
-Use minio to store files with S3 format, you can use the docker image, or download the binary from the official website. (My wget here.)
+Use minio to store files with S3 format, you can use the docker image, or download the binary from the official website. (My wget here.)\
+I also set minio
 
 #### Download where you want:
 
@@ -156,7 +190,7 @@ wget https://dl.min.io/server/minio/release/linux-amd64/minio
   You can use <http://localhost:3210> as the homepage URL and the Authorization callback URL.\
   Link Tutorial : [ssoproviders/github](https://lobehub.com/docs/self-hosting/advanced/auth/next-auth/github)
 
- - Below `umen` is the user, `yourpassword` is the password, `lobe_chat_db` is the database name on postgresql and `lobechat` is the bucket name on minio !!!  
+- Below `umen` is the user, `yourpassword` is the password, `lobe_chat_db` is the database name on postgresql and `lobechat` is the bucket name on minio !!!
 
 ```
 #.env file :

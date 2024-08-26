@@ -1,0 +1,83 @@
+export type XTTSVoice = 'default' | 'other_voice1' | 'other_voice2';
+
+export interface CreateLocalXTTSAudioSpeechCompletionOptions {
+  payload: XTTSPayload;
+  xtts: LocalXTTS;
+}
+
+export interface XTTSPayload {
+  input: string;
+  options: {
+    model: string;
+    voice: XTTSVoice;
+  };
+}
+
+export interface XTTSAPI {
+  XTTS_SERVER_URL?: string;
+  headers?: Record<string, string>;
+}
+
+export class LocalXTTS {
+  private headers?: Record<string, string>;
+  private XTTS_SERVER_URL: string;
+
+  constructor(api?: XTTSAPI) {
+    this.XTTS_SERVER_URL = api?.XTTS_SERVER_URL || 'http://localhost:8020';
+    this.headers = api?.headers;
+  }
+
+  async create(payload: XTTSPayload): Promise<Response> {
+    // const url = `${this.XTTS_SERVER_URL}/tts_to_audio/`;
+    const url = `${this.XTTS_SERVER_URL}/tts_to_audio/`;
+    const xttsPayload = {
+      language: 'en',
+      speaker_wav: 'default',
+      text: payload.input,
+    };
+
+    const headers = new Headers({
+      'Accept': '*/*',
+      'Content-Type': 'application/json',
+    });
+
+    if (this.headers) {
+      for (const [key, value] of Object.entries(this.headers)) {
+        headers.append(key, value);
+      }
+    }
+
+    const response = await fetch(url, {
+      body: JSON.stringify(xttsPayload),
+      headers: headers,
+      method: 'POST',
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    return response;
+  }
+}
+
+export const createLocalXTTSAudioSpeech = async ({
+  payload,
+  xtts,
+}: CreateLocalXTTSAudioSpeechCompletionOptions): Promise<Response> => {
+  return xtts.create(payload);
+};
+
+// export const createLocalXTTSAudioSpeech = async ({
+//   payload,
+//   xtts,
+// }: CreateLocalXTTSAudioSpeechCompletionOptions): Promise<Response> => {
+//   const response = await xtts.create(payload);
+//   const arrayBuffer = await response.arrayBuffer();
+
+//   return new Response(arrayBuffer, {
+//     headers: {
+//       'Content-Type': 'audio/wav',
+//     },
+//   });
+// };
