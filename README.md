@@ -15,10 +15,9 @@ Recommended : Use `PostgreSQL` for storage of chat history and `minio` for stora
 
 🏠 Runs entirely on your device\
 Use `xttsv2` for local text-to-speech. (You need to install it and run the server separately)\
-Link = <https://github.com/daswer123/xtts-api-server>\
+You need to use my fork = <https://github.com/justUmen/xtts-api-server>\
 ⚠ For now only english is available, and 1 voice sample : `default.wav` ⚠\
 You can use any custom voice sample, just replace manually the `default.wav` in the `speakers` folder.\
-Details about the installation of XTTS are below.\
 ![Background](screenshot3.png)
 
 ### 3 - 🌈 Custom Backgrounds
