@@ -4,7 +4,9 @@ import { createOpenaiAudioSpeech } from '@lobehub/tts/server';
 // import OpenAI from 'openai';
 import { createBizOpenAI } from '@/app/api/openai/createBizOpenAI';
 
-import { createLocalXTTSAudioSpeech } from './createLocalXTTSAudioSpeech';
+import { xtts_tts_stream } from './xtts';
+
+// xtts_tts_to_audio, xtts_tts_to_file
 
 export const runtime = 'edge';
 
@@ -29,15 +31,15 @@ export const preferredRegion = [
 ];
 
 export const POST = async (req: Request) => {
-  const openaiOrErrResponse = createBizOpenAI(req);
-
-  if (openaiOrErrResponse instanceof Response) return openaiOrErrResponse;
+  console.log('TTS POST');
   const payload = (await req.json()) as OpenAITTSPayload;
   console.log('TTS payload.input :', payload.input);
 
   if (payload.options.model === 'bjornulf_xtts') {
-    return await createLocalXTTSAudioSpeech({ openai: openaiOrErrResponse, payload });
+    return await xtts_tts_stream(payload.input);
   }
 
+  const openaiOrErrResponse = createBizOpenAI(req);
+  if (openaiOrErrResponse instanceof Response) return openaiOrErrResponse;
   return await createOpenaiAudioSpeech({ openai: openaiOrErrResponse, payload });
 };

@@ -17,7 +17,9 @@ Recommended : Use `PostgreSQL` for storage of chat history and `minio` for stora
 Use `xttsv2` for local text-to-speech. (You need to install it and run the server separately)\
 Link = <https://github.com/daswer123/xtts-api-server>\
 ⚠ For now only english is available, and 1 voice sample : `default.wav` ⚠\
-Details about the installation of XTTS are below.
+You can use any custom voice sample, just replace manually the `default.wav` in the `speakers` folder.\
+Details about the installation of XTTS are below.\
+![Background](screenshot3.png)
 
 ### 3 - 🌈 Custom Backgrounds
 
@@ -29,11 +31,12 @@ Example : `public/Bjornulf_backgrounds/16a174d5-928f-42e0-b1a7-3bb329a1bfa2.png`
 
 ## 📝 To do :
 
+- \[xtts] 😭 Bug, there a popping / cracking sound in the stream in between senteces for now, I'll fix i when i can.
+- \[xtts] Allow to change the voices (several .wav samples) and change the language of the XTTS. (include auto detection of language ?, use default_en.wav for english, default_fr.wav for french, etc...)
 - \[comfyui] If used with LLM, Comfyui also sends the local image link as useless tokens. (Not a huge waste, but a waste nevertheless.)
 - \[comfyui] Use minio for storage of comfyui images.
 - \[comfyui] Optimize loading time of comfyui images.
 - \[comfyui] Store and save options, like current json...
-- \[xtts] Allow to change the voices (several .wav samples) and change the language of the XTTS. (include auto detection of language ?, use default_en.wav for english, default_fr.wav for french, etc...)
 
 ## 0 - Lobe-chat installation (for example with bun, but can use npm or whatever...)
 
@@ -177,6 +180,8 @@ wget https://dl.min.io/server/minio/release/linux-amd64/minio
 ```
 
 #### Run minio in the folder you want, for me it's in the public folder of the project:
+
+You might also want to put minio bucket PUBLIC, so you can access the files without authentication.
 
 ```
 ./minio server /home/umen/SyNc/Forks/Bjornulf_lobe-chat/public/S3_minio/ --console-address ":9001"
