@@ -242,7 +242,8 @@ S3_PUBLIC_DOMAIN=http://localhost:9000
 
 # How do I use all of this ???
 
-- I use kitty terminal <https://github.com/kovidgoyal/kitty> and .desktop files, I just use it as 2 icons in my taskbar.
+- I use kitty terminal <https://github.com/kovidgoyal/kitty> and .desktop files, I just use it as 2 icons in my taskbar.\
+  ![Background](screenshots/screenshot5.png)
 
 I use lobe-chat + minio together on an icon with a .desktop file : `lobe-chat-minio.desktop`
 
