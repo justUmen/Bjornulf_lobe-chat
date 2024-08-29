@@ -1,24 +1,28 @@
 # Based on lobe-chat v1.12.19
 
 lobe-chat + comfyui + xttsv2 + custom backgrounds + (postgresql + minio)\
-Recommended : Use `PostgreSQL` for storage of chat history and `minio` for storage of files.
+Recommended : Use `PostgreSQL` for storage of chat history and `minio` for storage of files.\
+As awell as github for authentication.
 
 ## 🚀 My fork features :
 
 ### 1 - 🎨 Generate Images with ComfyUI
 
 🏠 Quick and dirty fork to enable lobe-chat to send ComfyUI api request + receive image link.\
+You need to use Comfyui of course, but also my Comfyui custom nodes : <https://github.com/justUmen/ComfyUI-BjornulfNodes>\
 ⚠ For now my comfyui images are NOT stored with minio, just in public folder... ⚠\
-![Comfyui](screenshot.png)
+![Comfyui](screenshots/screenshot.png)
 
-### 2 - 🗣️ Local Text-to-Speech with XTTS v2
+### 2 - 🗣️ Local Text-to-Speech with the voice you want (2 included)
 
 🏠 Runs entirely on your device\
 Use `xttsv2` for local text-to-speech. (You need to install it and run the server separately)\
-You need to use my fork = <https://github.com/justUmen/xtts-api-server>\
+You need to use my fork = <https://github.com/justUmen/Bjornulf_XTTS>\
 ⚠ For now only english is available, and 1 voice sample : `default.wav` ⚠\
 You can use any custom voice sample, just replace manually the `default.wav` in the `speakers` folder.\
-![Background](screenshot3.png)
+Here you can download a sample with `Attenborough` voice : <https://drive.google.com/file/d/1JOSpavgN0GS2OswXbQCpqL5kYV0nSr6n/view?usp=sharing>\
+![Background](screenshots/screenshot3.png)
+![bjornulf xtts](screenshots/screenshot4.png)
 
 ### 3 - 🌈 Custom Backgrounds
 
@@ -26,11 +30,11 @@ You can use any custom voice sample, just replace manually the `default.wav` in 
 The custom background image based on session id, just use a .png with session id name, from your url.\
 Example : `public/Bjornulf_backgrounds/16a174d5-928f-42e0-b1a7-3bb329a1bfa2.png`\
 ⚠ Require restart to take effect ⚠\
-![Background](screenshot2.png)
+![Background](screenshots/screenshot2.png)
 
 ## 📝 To do :
 
-- \[xtts] 😭 Bug, there a popping / cracking sound in the stream in between senteces for now, I'll fix i when i can.
+- \[xtts] Bug, there a popping / cracking sound in the stream in between sentences.
 - \[xtts] Allow to change the voices (several .wav samples) and change the language of the XTTS. (include auto detection of language ?, use default_en.wav for english, default_fr.wav for french, etc...)
 - \[comfyui] If used with LLM, Comfyui also sends the local image link as useless tokens. (Not a huge waste, but a waste nevertheless.)
 - \[comfyui] Use minio for storage of comfyui images.
@@ -59,7 +63,6 @@ And the server should be running on `http://localhost:3210`, use the browser of 
 
 ## Details :
 
-- You need to use my Comfyui custom nodes : <https://github.com/justUmen/ComfyUI-BjornulfNodes>
 - Can use my JSON workflows in the `public/Bjornulf_API/` folder to send to the ComfyUI, like for example `sd15.json` (Warning : You need to launch it manually at least one time before using it in lobe-chat.
 - It is using a link `output/BJORNULF_API_LAST_IMAGE.png` created by my custom node comfyui, that need to be used in the workflow. The generated image is then copied using this link to the `public/generated/` folder inside lobe-chat.
 
@@ -190,10 +193,6 @@ You might also want to put minio bucket PUBLIC, so you can access the files with
 
 - Generate KEY_VAULTS_SECRET and NEXT_AUTH_SECRET with `openssl rand -base64 32`.
 
-- GITHUB_CLIENT_ID and GITHUB_CLIENT_SECRET are obtained by creating a new OAuth App on GitHub.\
-  You can use <http://localhost:3210> as the homepage URL and the Authorization callback URL.\
-  Link Tutorial : [ssoproviders/github](https://lobehub.com/docs/self-hosting/advanced/auth/next-auth/github)
-
 - Below `umen` is the user, `yourpassword` is the password, `lobe_chat_db` is the database name on postgresql and `lobechat` is the bucket name on minio !!!
 
 ```
@@ -228,3 +227,51 @@ S3_BUCKET=lobechat
 S3_ENDPOINT=http://localhost:9000
 S3_PUBLIC_DOMAIN=http://localhost:9000
 ```
+
+# How to Prepare to login using github
+
+- GITHUB_CLIENT_ID and GITHUB_CLIENT_SECRET are obtained by creating a new OAuth App on GitHub.\
+  (You can use <http://localhost:3210> as the homepage URL and the Authorization callback URL.)\
+  Start on this link <https://github.com/settings/apps/new>, and follow the screenshots below to get GITHUB_CLIENT_ID and GITHUB_CLIENT_SECRET :
+
+![gitthub](screenshots/github/1.png)\
+![gitthub](screenshots/github/2.png)\
+![gitthub](screenshots/github/3.png)\
+![gitthub](screenshots/github/4.png)\
+![gitthub](screenshots/github/5.png)
+
+# How do I use all of this ???
+
+- I use kitty terminal <https://github.com/kovidgoyal/kitty> and .desktop files, I just use it as 2 icons in my taskbar.
+
+I use lobe-chat + minio together on an icon with a .desktop file : `lobe-chat-minio.desktop`
+
+```
+[Desktop Entry]
+Name=lobe-chat-minio
+Comment=lobe-chat-minio
+Exec=kitty --class "kitty_lobechat" --title "kitty - lobe-chat" zsh -i -c '/home/umen/Downloads/minio server /home/umen/SyNc/Forks/Bjornulf_lobe-chat/public/S3_minio/ --console-address ":9001" & cd /home/umen/SyNc/Forks/Bjornulf_lobe-chat && bun run start || read'
+Icon=/home/umen/Pictures/icons/lobe-chat.webp
+Terminal=false
+Type=Application
+Categories=Utility;
+StartupWMClass=kitty_lobechat
+```
+
+I keep XTTS separate, because I don't want to use VRAM if i don't plan on using TTS. I launch it when needed with another icon .desktop file : `xtts.desktop`
+
+```
+[Desktop Entry]
+Name=xtts_server
+Comment=xtts_server
+Exec=kitty --class "kitty_xtts" --title "kitty - xtts" zsh -i -c 'source /home/umen/venv/xtts/bin/activate && cd /home/umen/SyNc/Forks/xtts-api-server/xtts_api_server/ && python bjornulf_xtts_server.py'
+Icon=/home/umen/Pictures/icons/speaker.svg
+Terminal=false
+Type=Application
+Categories=Utility;
+StartupWMClass=kitty_xtts
+```
+
+- What about PostgreSQL ?\
+  For me PostgreSQL is running all the time, just run once `sudo systemctl enable postgresql` and `sudo systemctl start postgresql`.\
+  The server will be available on `localhost:5432` and the database `lobe_chat_db` will be used by lobe-chat.
