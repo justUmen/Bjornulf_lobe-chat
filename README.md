@@ -34,7 +34,6 @@ Example : `public/Bjornulf_backgrounds/16a174d5-928f-42e0-b1a7-3bb329a1bfa2.png`
 
 ## 📝 To do :
 
-- \[xtts] Bug, there a popping / cracking sound in the stream in between sentences.
 - \[xtts] Allow to change the voices (several .wav samples) and change the language of the XTTS. (include auto detection of language ?, use default_en.wav for english, default_fr.wav for french, etc...)
 - \[comfyui] If used with LLM, Comfyui also sends the local image link as useless tokens. (Not a huge waste, but a waste nevertheless.)
 - \[comfyui] Use minio for storage of comfyui images.
@@ -265,13 +264,21 @@ I keep XTTS separate, because I don't want to use VRAM if i don't plan on using 
 [Desktop Entry]
 Name=xtts_server
 Comment=xtts_server
-Exec=kitty --class "kitty_xtts" --title "kitty - xtts" zsh -i -c 'source /home/umen/venv/xtts/bin/activate && cd /home/umen/SyNc/Forks/xtts-api-server/xtts_api_server/ && python bjornulf_xtts_server.py'
+Exec=kitty --class "kitty_xtts" --title "kitty - xtts" zsh -i -c 'source /home/umen/venv/xtts/bin/activate && cd /home/umen/SyNc/Forks/xtts-api-server/xtts_api_server/ && python bjornulf_xtts_server.py || read'
 Icon=/home/umen/Pictures/icons/speaker.svg
 Terminal=false
 Type=Application
 Categories=Utility;
 StartupWMClass=kitty_xtts
 ```
+
+- Notice the ` || read` to keep the terminal open in case of error, so you can read the error...
+
+- How do I close them ? I go on the kitty terminal and close them with `Ctrl + C` when i don't need them anymore.
+
+- I also have all my terminals running in a separate workspace, so they don't clutter my environment.
+
+- On my computer CUDA has issues after hibernation, so I just restart my computer. So i just disable hibernation for `bjornulf_xtts_server.py` with something like that : `systemd-inhibit --what=sleep --who="bjornulf app" --why="Preventing sleep" --mode=block python bjornulf_xtts_server.py`
 
 - What about PostgreSQL ?\
   For me PostgreSQL is running all the time, just run once `sudo systemctl enable postgresql` and `sudo systemctl start postgresql`.\
