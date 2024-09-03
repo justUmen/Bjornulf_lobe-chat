@@ -1,3 +1,4 @@
+import { NextRequest, NextResponse } from 'next/server';
 import fs from 'node:fs';
 import path from 'node:path';
 
@@ -30,29 +31,58 @@ const languages: Language[] = [
   { label: 'Turkish', value: 'tr' },
 ];
 
-export async function GET(request: Request) {
-  console.log(request);
+export const dynamic = 'force-dynamic';
+
+export async function GET(request: NextRequest) {
+  console.log('GET request received:', request);
   const voicesDirectory = path.join(process.cwd(), 'public', 'bjornulf_voices');
+  // console.log('Voices directory:', voicesDirectory);
+
   const voices: VoiceMap = {};
 
-  for (const language of languages) {
-    const languagePath = path.join(voicesDirectory, language.value);
+  try {
+    const directoryContents = await fs.promises.readdir(voicesDirectory, { withFileTypes: true });
 
-    // Check if directory exists before proceeding
-    if (fs.existsSync(languagePath)) {
-      const stats = await fs.promises.stat(languagePath);
-      if (stats.isDirectory()) {
-        const files = await fs.promises.readdir(languagePath);
-        const languageVoices = files
-          .filter((file) => file.endsWith('.wav'))
-          .map((file) => file.replace('.wav', ''));
+    for (const dirent of directoryContents) {
+      if (dirent.isDirectory()) {
+        const languageCode = dirent.name;
+        const language = languages.find((lang) => lang.value === languageCode);
 
-        if (languageVoices.length > 0) {
-          voices[language.value] = languageVoices;
+        if (language) {
+          const languagePath = path.join(voicesDirectory, languageCode);
+          // console.log(`Checking language: ${languageCode}, path: ${languagePath}`);
+
+          const files = await fs.promises.readdir(languagePath);
+          // console.log(`Files in ${languageCode}:`, files);
+
+          const languageVoices = files
+            .filter((file) => file.endsWith('.wav'))
+            .map((file) => file.replace('.wav', ''));
+
+          // console.log(`Filtered .wav files for ${languageCode}:`, languageVoices);
+
+          if (languageVoices.length > 0) {
+            voices[languageCode] = languageVoices;
+            // console.log(`Added voices for ${languageCode}`);
+          } else {
+            // console.log(`No .wav files found for ${languageCode}`);
+          }
+        } else {
+          console.log(`Unknown language folder: ${languageCode}`);
         }
       }
     }
+  } catch (error) {
+    console.error('Error reading voices directory:', error);
   }
 
-  return Response.json({ voices });
+  console.log('Final voices object:', voices);
+  return NextResponse.json(
+    { voices },
+    {
+      headers: {
+        'Cache-Control': 'no-store, max-age=0',
+      },
+    },
+  );
 }
