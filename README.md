@@ -1,8 +1,12 @@
-# Based on lobe-chat v1.12.19
+# Based on lobe-chat v1.15.9
 
-lobe-chat + comfyui + xttsv2 + custom backgrounds + (postgresql + minio)\
-Recommended : Use `PostgreSQL` for storage of chat history and `minio` for storage of files.\
-As awell as github for authentication.
+Original project : <https://github.com/lobehub/lobe-chat>\\
+
+Mine uses :
+
+- lobe-chat + comfyui + xttsv2 + custom backgrounds + (postgresql + minio)\\
+- Recommended : Use `PostgreSQL` for storage of chat history and `minio` for storage of files.\\
+- Github for user authentication.
 
 ## 🚀 My fork features :
 

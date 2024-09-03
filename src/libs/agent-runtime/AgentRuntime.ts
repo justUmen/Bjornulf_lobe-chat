@@ -32,6 +32,7 @@ import {
   ModelProvider,
   TextToImagePayload,
 } from './types';
+import { LobeUpstageAI } from './upstage';
 import { LobeZeroOneAI } from './zeroone';
 import { LobeZhipuAI } from './zhipu';
 
@@ -134,6 +135,7 @@ class AgentRuntime {
       stepfun: Partial<ClientOptions>;
       taichu: Partial<ClientOptions>;
       togetherai: Partial<ClientOptions>;
+      upstage: Partial<ClientOptions>;
       zeroone: Partial<ClientOptions>;
       zhipu: Partial<ClientOptions>;
     }>,
@@ -259,6 +261,11 @@ class AgentRuntime {
 
       case ModelProvider.SiliconCloud: {
         runtimeModel = new LobeSiliconCloudAI(params.siliconcloud ?? {});
+        break;
+      }
+
+      case ModelProvider.Upstage: {
+        runtimeModel = new LobeUpstageAI(params.upstage);
         break;
       }
     }

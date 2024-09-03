@@ -56,12 +56,20 @@ const BjornulfVoices: React.FC<BjornulfVoicesProps> = ({
         const response = await fetch('/api/getVoices');
         const data = await response.json();
         setVoices(data.voices);
+
+        // If no voice is selected, select the first voice of the current language
+        if (!selectedVoice && data.voices[selectedLanguage]?.length > 0) {
+          const firstVoice = data.voices[selectedLanguage][0];
+          setSelectedVoice(firstVoice);
+          localStorage.setItem('selectedVoice', firstVoice);
+          onVoiceSelect?.(firstVoice);
+        }
       } catch (error) {
         console.error('Error fetching voices:', error);
       }
     };
     fetchVoices();
-  }, []);
+  }, [selectedLanguage, selectedVoice, onVoiceSelect]);
 
   const handleVoiceSelect = (voice: string) => {
     setSelectedVoice(voice);
@@ -80,8 +88,15 @@ const BjornulfVoices: React.FC<BjornulfVoicesProps> = ({
     setSelectedLanguage(language);
     localStorage.setItem('selectedLanguage', language);
     onLanguageSelect?.(language);
-    setSelectedVoice('');
-    localStorage.removeItem('selectedVoice');
+
+    // Check if the currently selected voice is available in the new language
+    if (!voices[language]?.includes(selectedVoice)) {
+      // If not, select the first voice in the new language
+      const firstVoice = voices[language]?.[0] || '';
+      setSelectedVoice(firstVoice);
+      localStorage.setItem('selectedVoice', firstVoice);
+      onVoiceSelect?.(firstVoice);
+    }
   };
 
   const handleAudioPlay = (voice: string) => {
@@ -102,12 +117,14 @@ const BjornulfVoices: React.FC<BjornulfVoicesProps> = ({
   };
 
   const handleModalClose = () => {
-    setIsOpen(false);
-    if (playingAudio) {
-      const currentAudio = document.querySelector(`#audio-${playingAudio}`) as HTMLAudioElement;
-      currentAudio.pause();
-      currentAudio.currentTime = 0;
-      setPlayingAudio(null);
+    if (selectedVoice) {
+      setIsOpen(false);
+      if (playingAudio) {
+        const currentAudio = document.querySelector(`#audio-${playingAudio}`) as HTMLAudioElement;
+        currentAudio.pause();
+        currentAudio.currentTime = 0;
+        setPlayingAudio(null);
+      }
     }
   };
 
@@ -129,7 +146,12 @@ const BjornulfVoices: React.FC<BjornulfVoicesProps> = ({
       <Modal
         footer={
           <div className="flex justify-end">
-            <button className="px-4 py-2 rounded" onClick={handleModalClose} type="button">
+            <button
+              className={`px-4 py-2 rounded ${!selectedVoice ? 'opacity-50 cursor-not-allowed' : ''}`}
+              disabled={!selectedVoice}
+              onClick={handleModalClose}
+              type="button"
+            >
               Close
             </button>
           </div>
