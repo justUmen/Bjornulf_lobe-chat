@@ -160,7 +160,7 @@ const BjornulfVoices: React.FC<BjornulfVoicesProps> = ({
         open={isOpen}
         style={{ maxHeight: '90vh', overflow: 'hidden' }}
         title="[Bjornulf] Select a Voice"
-        width={300}
+        width={400}
       >
         <div className="language-select mb-4">
           <Select className="w-full" onChange={handleLanguageSelect} value={selectedLanguage}>

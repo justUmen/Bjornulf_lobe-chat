@@ -227,12 +227,12 @@ const Comfy = memo(() => {
         footer={null}
         onCancel={() => setShowApiSelect(false)}
         open={showApiSelect}
-        title="[Bjornulf] Select workflow JSON"
-        width={300}
+        title="[Bjornulf] workflows in public/Bjornulf_API"
+        width={400}
       >
         <Select
           onChange={handleApiChange}
-          options={availableApis.map((api) => ({ label: api, value: api }))}
+          options={availableApis.map((api) => ({ label: api + '.json', value: api }))}
           placeholder="[Bjornulf] Select workflow JSON"
           style={{ width: '100%' }}
           value={apiUrl}
