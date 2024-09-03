@@ -1,0 +1,49 @@
+.voice-list {
+  max-height: none; /* No scrolling */
+  padding: 0.5rem 20px;
+}
+
+.voice-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.4rem 0.5rem; /* Thinner lines */
+  margin: 0.2rem 0;
+  border: 1px solid; /* Add border around each voice */
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s, border 0.2s, transform 0.2s;
+}
+
+.voice-item:hover {
+  transform: translateX(5px); /* Slight shift on hover */
+}
+
+.voice-item.selected {
+  border: 3px solid; /* Make the selected voice border thicker */
+  font-weight: bold; /* Make the selected voice more obvious */
+  transform: scale(1.15); /* Slight enlargement for selected */
+
+}
+
+.voice-name {
+  flex: 1;
+  font-size: 0.85rem; /* Slightly smaller font for a thinner line */
+}
+
+.play-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.25rem;
+  transition: transform 0.2s;
+}
+
+.play-button:hover {
+  transform: scale(1.1); /* Button grows slightly on hover */
+}
+
+.no-voices {
+  padding: 1rem;
+  text-align: center;
+}

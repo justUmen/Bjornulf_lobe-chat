@@ -23,11 +23,15 @@ interface TTSConfig extends TTSOptions {
   voice?: string;
 }
 
+const getLanguageFromStorage = () => localStorage.getItem('selectedLanguage') || 'en';
+const getSpeakerFromStorage = () => localStorage.getItem('selectedVoice') || 'default';
+
 export const useTTS = (content: string, config?: TTSConfig) => {
   const ttsSettings = useUserStore(settingsSelectors.currentTTS, isEqual);
   const ttsAgentSettings = useAgentStore(agentSelectors.currentAgentTTS, isEqual);
   const lang = useUserStore(userGeneralSettingsSelectors.currentLanguage);
   const voice = useAgentStore(agentSelectors.currentAgentTTSVoice(lang));
+
   let useSelectedTTS;
   let options: any = {};
   switch (config?.server || ttsAgentSettings.ttsService) {
@@ -39,6 +43,8 @@ export const useTTS = (content: string, config?: TTSConfig) => {
           serviceUrl: API_ENDPOINTS.tts,
         },
         options: {
+          bjornulf_selected_language: getLanguageFromStorage(),
+          bjornulf_selected_voice: getSpeakerFromStorage(),
           model: ttsSettings.openAI.ttsModel,
           voice: config?.voice || voice,
         },

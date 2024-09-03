@@ -36,7 +36,11 @@ export const POST = async (req: Request) => {
   console.log('TTS payload.input :', payload.input);
 
   if (payload.options.model === 'bjornulf_xtts') {
-    return await xtts_tts_stream(payload.input);
+    return await xtts_tts_stream(
+      payload.input,
+      payload.options.bjornulf_selected_language,
+      payload.options.bjornulf_selected_voice,
+    );
   }
 
   const openaiOrErrResponse = createBizOpenAI(req);

@@ -40,14 +40,17 @@ export const xtts_tts_to_audio = async (input: string): Promise<Response> => {
   }
 };
 
-export const xtts_tts_stream = async (input: string): Promise<Response> => {
+export const xtts_tts_stream = async (
+  input: string,
+  bjornulf_selected_language: string,
+  bjornulf_selected_voice: string,
+): Promise<Response> => {
   const xttsBaseUrl = 'http://localhost:8020/tts_stream';
 
   try {
-    // Prepare query parameters
     const params = new URLSearchParams({
-      language: 'en',
-      speaker_wav: 'default',
+      language: bjornulf_selected_language,
+      speaker_wav: bjornulf_selected_language + '/' + bjornulf_selected_voice,
       text: input,
     });
 

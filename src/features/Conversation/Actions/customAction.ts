@@ -1,6 +1,6 @@
 import { ActionIconGroupItems } from '@lobehub/ui/es/ActionIconGroup';
 import { css, cx } from 'antd-style';
-import { Camera, LanguagesIcon, Play } from 'lucide-react';
+import { Camera, LanguagesIcon, Play, Speaker } from 'lucide-react';
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -39,5 +39,14 @@ export const useCustomActions = () => {
     label: 'Comfy',
   } as ActionIconGroupItems;
 
-  return useMemo(() => ({ comfy, translate, tts }), [comfy, translate, tts]);
+  const bjornulf_voices = {
+    icon: Speaker,
+    key: 'bjornulf_voices',
+    label: 'bjornulf_voices',
+  } as ActionIconGroupItems;
+
+  return useMemo(
+    () => ({ bjornulf_voices, comfy, translate, tts }),
+    [bjornulf_voices, comfy, translate, tts],
+  );
 };

@@ -1,21 +1,22 @@
-import { ActionIcon } from '@lobehub/ui';
-import { Input, message } from 'antd';
+import { ActionIcon, Modal } from '@lobehub/ui';
+import { Select, message } from 'antd';
 import { Camera, Settings } from 'lucide-react';
 import { memo, useCallback, useEffect, useState } from 'react';
 
 import { useChatStore } from '@/store/chat';
 import { chatSelectors } from '@/store/chat/selectors';
 
+import BjornulfVoices from './BjornulfVoices';
+
+// Types
 interface Inputs {
-  [key: string]: any; // General property for additional keys
+  [key: string]: any;
   clip?: (string | number)[];
   text?: string;
 }
 
 interface Node {
-  _meta?: {
-    title: string;
-  };
+  _meta?: { title: string };
   class_type?: string;
   inputs: Inputs;
 }
@@ -24,14 +25,14 @@ interface PromptData {
   [key: string]: Node;
 }
 
+// Helper Functions
 const pollForImage = async () => {
   const baseImageUrl = 'http://localhost:8188/view?filename=output/BJORNULF_API_LAST_IMAGE.png';
   let previousImageHash = null;
-  let polling = true;
   let retries = 0;
-  const maxRetries = 300; // Adjust as needed
+  const maxRetries = 300;
 
-  while (polling && retries < maxRetries) {
+  while (retries < maxRetries) {
     const imageUrl = `${baseImageUrl}&rand=${Math.random()}`;
     try {
       const response = await fetch(imageUrl);
@@ -44,7 +45,6 @@ const pollForImage = async () => {
 
         if (previousImageHash !== currentImageHash) {
           if (previousImageHash !== null) {
-            // We've detected a change in the image
             return imageUrl;
           }
           previousImageHash = currentImageHash;
@@ -65,17 +65,29 @@ const pollForImage = async () => {
   throw new Error('Timeout waiting for new image');
 };
 
+// Main Component
 const Comfy = memo(() => {
+  // State
   const [promptData, setPromptData] = useState<PromptData | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [apiUrl, setApiUrl] = useState(() => localStorage.getItem('selectedApi') || 'sdxl');
+  const [showApiSelect, setShowApiSelect] = useState(false);
+  const [availableApis, setAvailableApis] = useState<string[]>([]);
+
+  // Chat Store
   const [, inputMessage, updateInputMessage] = useChatStore((s) => [
     chatSelectors.isAIGenerating(s),
     s.inputMessage,
     s.updateInputMessage,
   ]);
   const addAIMessage = useChatStore((s) => s.addAIMessage);
-  const [apiUrl, setApiUrl] = useState('sdxl');
-  const [showApiInput, setShowApiInput] = useState(false);
+
+  // API Functions
+  const fetchAvailableApis = useCallback(async () => {
+    const response = await fetch('/api/getComfyJson');
+    const data = await response.json();
+    setAvailableApis(data.jsonFiles.map((file: string) => file.replace('.json', '')));
+  }, []);
 
   const fetchPromptData = useCallback(() => {
     console.log(apiUrl);
@@ -83,32 +95,21 @@ const Comfy = memo(() => {
       .then((response) => response.json())
       .then((data) => {
         setPromptData(data as PromptData);
-        message.success('ComfyUI JSON is valid : ' + apiUrl);
-        setShowApiInput(false);
-      })
-      .catch((error) => {
-        console.error('ComfyUI JSON is NOT valid :', error);
-        // message.error('Failed to load prompt data from the provided URL.');
+        // message.success('ComfyUI JSON is valid : ' + apiUrl);
+        // setShowApiInput(false);
       });
   }, [apiUrl]);
+
+  // Effects
+  useEffect(() => {
+    fetchAvailableApis();
+  }, [fetchAvailableApis]);
 
   useEffect(() => {
     fetchPromptData();
   }, [fetchPromptData]);
 
-  useEffect(() => {
-    if (promptData) {
-      console.log('Prompt data:', promptData);
-    }
-  }, [promptData]);
-
-  // const imageNameUrl = `http://localhost:8188/view?filename=output/api_next_image.txt&rand=${Math.random()}`;
-  // if (apiUrl === 'flux_schnell' || apiUrl === 'flux_dev') {
-  //   promptData['27:1'].inputs.noise_seed = seed; //for flux_schnell.json
-  // }
-  // else {
-  //   promptData['48'].inputs.seed = seed; //for sd15.json, sdxl.json, sd3.json
-  // }
+  // Handlers
   const sendToComfyUI = useCallback(async () => {
     if (promptData && inputMessage.trim() !== '') {
       const seed = Math.floor(Math.random() * Number.MAX_SAFE_INTEGER);
@@ -196,33 +197,47 @@ const Comfy = memo(() => {
     }
   }, [promptData, inputMessage, addAIMessage, updateInputMessage, apiUrl]);
 
-  const toggleApiInput = () => {
-    setShowApiInput(!showApiInput);
+  const handleApiChange = (value: string) => {
+    setApiUrl(value);
+    localStorage.setItem('selectedApi', value);
+    fetchPromptData();
   };
 
+  // Render
   return (
     <div style={{ alignItems: 'center', display: 'flex' }}>
+      <BjornulfVoices
+        isLoading={false}
+        onLanguageSelect={(language) => console.log('Selected language:', language)}
+        onVoiceSelect={(voice) => console.log('Selected voice:', voice)}
+      />
       <ActionIcon
         icon={Camera}
         loading={isLoading}
         onClick={sendToComfyUI}
-        title={isLoading ? 'Sending...' : 'Send to Comfyui API'}
+        title={isLoading ? 'Sending...' : '[Bjornulf] Send to Comfyui API'}
       />
       <ActionIcon
         icon={Settings}
-        onClick={toggleApiInput}
+        onClick={() => setShowApiSelect(true)}
         style={{ marginLeft: '10px' }}
-        title="Set API URL"
+        title="[Bjornulf] Comfyui : Select workflow JSON"
       />
-      {showApiInput && (
-        <Input
-          onBlur={fetchPromptData}
-          onChange={(e) => setApiUrl(e.target.value)}
-          placeholder="Enter API URL"
-          style={{ marginLeft: '10px', width: '300px' }}
+      <Modal
+        footer={null}
+        onCancel={() => setShowApiSelect(false)}
+        open={showApiSelect}
+        title="[Bjornulf] Select workflow JSON"
+        width={300}
+      >
+        <Select
+          onChange={handleApiChange}
+          options={availableApis.map((api) => ({ label: api, value: api }))}
+          placeholder="[Bjornulf] Select workflow JSON"
+          style={{ width: '100%' }}
           value={apiUrl}
         />
-      )}
+      </Modal>
     </div>
   );
 });

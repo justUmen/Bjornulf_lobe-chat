@@ -18,23 +18,28 @@ You need to use Comfyui of course, but also my Comfyui custom nodes : <https://g
 🏠 Runs entirely on your device\
 Use `xttsv2` for local text-to-speech. (You need to install it and run the server separately)\
 You need to use my fork = <https://github.com/justUmen/Bjornulf_XTTS>\
-⚠ For now only english is available, and 1 voice sample : `default.wav` ⚠\
-You can use any custom voice sample, just replace manually the `default.wav` in the `speakers` folder.\
-Here you can download a sample with `Attenborough` voice : <https://drive.google.com/file/d/1JOSpavgN0GS2OswXbQCpqL5kYV0nSr6n/view?usp=sharing>\
+⚠ lobe-chat and xtts should share the same folder, create a link `Bjornulf_XTTS/xtts_api_server/speakers/` to or from `Bjornulf_lobe-chat/public/bjornulf_voices/` ⚠\
+For multilanguage support, you can use folders with language code like `en`, `fr`, `de`, etc...\
+You can use any `.wav` custom voice sample, just replace manually the `default.wav` in the `speakers` folder.\
+Available languages :\
+`ar: 'Arabic', cs: 'Czech', de: 'German', en: 'English', es: 'Spanish', fr: 'French', hi: 'Hindi', hu: 'Hungarian', it: 'Italian', ja: 'Japanese', ko: 'Korean', nl: 'Dutch', pl: 'Polish', pt: 'Portuguese', ru: 'Russian', tr: 'Turkish', 'zh-cn': 'Chinese'`\
+Here you can download a sample with `Attenborough` voice (English so put in a folder `en`) : <https://drive.google.com/file/d/1JOSpavgN0GS2OswXbQCpqL5kYV0nSr6n/view?usp=sharing>\
 ![Background](screenshots/screenshot3.png)
-![bjornulf xtts](screenshots/screenshot4.png)
+![bjornulf xtts](screenshots/screenshot4.png)\
+![bjornulf voices](screenshots/screenshot6.png)
 
 ### 3 - 🌈 Custom Backgrounds
 
 🎨 Use your own images as background.\
 The custom background image based on session id, just use a .png with session id name, from your url.\
-Example : `public/Bjornulf_backgrounds/16a174d5-928f-42e0-b1a7-3bb329a1bfa2.png`\
+Just check the URL of the lobe-chat, and use the session id as the name of the image.\
+Example for `http://localhost:3210/chat?agent=&session=ssn_W6hB1fM2y4fK`, image should be `public/Bjornulf_backgrounds/ssn_W6hB1fM2y4fK.png`\
 ⚠ Require restart to take effect ⚠\
 ![Background](screenshots/screenshot2.png)
 
 ## 📝 To do :
 
-- \[xtts] Allow to change the voices (several .wav samples) and change the language of the XTTS. (include auto detection of language ?, use default_en.wav for english, default_fr.wav for french, etc...)
+- \[xtts] Include auto detection of language.
 - \[comfyui] If used with LLM, Comfyui also sends the local image link as useless tokens. (Not a huge waste, but a waste nevertheless.)
 - \[comfyui] Use minio for storage of comfyui images.
 - \[comfyui] Optimize loading time of comfyui images.
