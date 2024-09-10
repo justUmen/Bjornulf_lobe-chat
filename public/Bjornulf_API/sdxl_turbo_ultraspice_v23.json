@@ -1,0 +1,98 @@
+{
+  "47": {
+    "inputs": {
+      "ckpt_name": "SDXL_TURBO/ultraspice_v23.safetensors"
+    },
+    "class_type": "CheckpointLoaderSimple",
+    "_meta": {
+      "title": "Load Checkpoint"
+    }
+  },
+  "48": {
+    "inputs": {
+      "seed": 48951636200725,
+      "steps": 5,
+      "cfg": 2,
+      "sampler_name": "dpmpp_sde",
+      "scheduler": "karras",
+      "denoise": 1,
+      "model": ["47", 0],
+      "positive": ["49", 0],
+      "negative": ["50", 0],
+      "latent_image": ["51", 0]
+    },
+    "class_type": "KSampler",
+    "_meta": {
+      "title": "KSampler"
+    }
+  },
+  "49": {
+    "inputs": {
+      "text": ["62", 0],
+      "clip": ["65", 0]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Prompt)"
+    }
+  },
+  "50": {
+    "inputs": {
+      "text": "",
+      "clip": ["65", 0]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Prompt)"
+    }
+  },
+  "51": {
+    "inputs": {
+      "width": 1024,
+      "height": 1024,
+      "batch_size": 1
+    },
+    "class_type": "EmptyLatentImage",
+    "_meta": {
+      "title": "Empty Latent Image"
+    }
+  },
+  "52": {
+    "inputs": {
+      "samples": ["48", 0],
+      "vae": ["47", 2]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "VAE Decode"
+    }
+  },
+  "62": {
+    "inputs": {
+      "text": "BJORNULF_LOBECHAT_PROMPT"
+    },
+    "class_type": "Bjornulf_WriteTextInConsole",
+    "_meta": {
+      "title": "✒🗔 Write Text (Console too) "
+    }
+  },
+  "64": {
+    "inputs": {
+      "image": ["52", 0]
+    },
+    "class_type": "Bjornulf_SaveBjornulfLobeChat",
+    "_meta": {
+      "title": "🖼💬 Save image for Bjornulf LobeChat"
+    }
+  },
+  "65": {
+    "inputs": {
+      "stop_at_clip_layer": -2,
+      "clip": ["47", 1]
+    },
+    "class_type": "CLIPSetLastLayer",
+    "_meta": {
+      "title": "CLIP Set Last Layer"
+    }
+  }
+}
