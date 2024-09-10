@@ -1,4 +1,4 @@
-# Based on lobe-chat v1.15.9
+# Based on lobe-chat v1.15.33
 
 Run several types of Ai on your local computer.
 
