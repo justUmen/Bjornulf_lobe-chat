@@ -10,14 +10,14 @@ const Groq: ModelProviderCard = {
       enabled: true,
       functionCall: true,
       id: 'llama-3.1-8b-instant',
-      tokens: 8000,
+      tokens: 131_072,
     },
     {
       displayName: 'Llama 3.1 70B (Preview)',
       enabled: true,
       functionCall: true,
       id: 'llama-3.1-70b-versatile',
-      tokens: 8000,
+      tokens: 131_072,
     },
     /*
     // Offline due to overwhelming demand! Stay tuned for updates.
@@ -25,7 +25,7 @@ const Groq: ModelProviderCard = {
       displayName: 'Llama 3.1 405B (Preview)',
       functionCall: true,
       id: 'llama-3.1-405b-reasoning',
-      tokens: 8000,
+      tokens: 8_192,
     },
 */
     {
@@ -57,7 +57,7 @@ const Groq: ModelProviderCard = {
       tokens: 8192,
     },
     {
-      displayName: 'Gemma2 9B',
+      displayName: 'Gemma 2 9B',
       enabled: true,
       functionCall: true,
       id: 'gemma2-9b-it',
@@ -75,6 +75,13 @@ const Groq: ModelProviderCard = {
       functionCall: true,
       id: 'mixtral-8x7b-32768',
       tokens: 32_768,
+    },
+    {
+      displayName: 'LLaVA 1.5 7B',
+      enabled: true,
+      id: 'llava-v1.5-7b-4096-preview',
+      tokens: 4096,
+      vision: true,
     },
   ],
   checkModel: 'gemma2-9b-it',
