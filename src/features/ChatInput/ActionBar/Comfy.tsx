@@ -25,45 +25,47 @@ interface PromptData {
   [key: string]: Node;
 }
 
+// const COMFYUI_URL = process.env.NEXT_PUBLIC_COMFYUI_URL || 'http://127.0.0.1:8188';
+
 // Helper Functions
-const pollForImage = async () => {
-  const baseImageUrl = 'http://localhost:8188/view?filename=output/BJORNULF_API_LAST_IMAGE.png';
-  let previousImageHash = null;
-  let retries = 0;
-  const maxRetries = 300;
+// const pollForImage = async () => {
+//   const baseImageUrl = COMFYUI_URL + '/view?filename=output/BJORNULF_API_LAST_IMAGE.png';
+//   let previousImageHash = null;
+//   let retries = 0;
+//   const maxRetries = 300;
 
-  while (retries < maxRetries) {
-    const imageUrl = `${baseImageUrl}&rand=${Math.random()}`;
-    try {
-      const response = await fetch(imageUrl);
-      if (response.ok) {
-        const imageBlob = await response.blob();
-        const imageArrayBuffer = await imageBlob.arrayBuffer();
-        const hashBuffer = await crypto.subtle.digest('SHA-256', imageArrayBuffer);
-        const hashArray = Array.from(new Uint8Array(hashBuffer));
-        const currentImageHash = hashArray.map((b) => b.toString(16).padStart(2, '0')).join('');
+//   while (retries < maxRetries) {
+//     const imageUrl = `${baseImageUrl}&rand=${Math.random()}`;
+//     try {
+//       const response = await fetch(imageUrl);
+//       if (response.ok) {
+//         const imageBlob = await response.blob();
+//         const imageArrayBuffer = await imageBlob.arrayBuffer();
+//         const hashBuffer = await crypto.subtle.digest('SHA-256', imageArrayBuffer);
+//         const hashArray = Array.from(new Uint8Array(hashBuffer));
+//         const currentImageHash = hashArray.map((b) => b.toString(16).padStart(2, '0')).join('');
 
-        if (previousImageHash !== currentImageHash) {
-          if (previousImageHash !== null) {
-            return imageUrl;
-          }
-          previousImageHash = currentImageHash;
-        }
-      }
-    } catch (error) {
-      console.log('Polling for image...', error);
-    }
+//         if (previousImageHash !== currentImageHash) {
+//           if (previousImageHash !== null) {
+//             return imageUrl;
+//           }
+//           previousImageHash = currentImageHash;
+//         }
+//       }
+//     } catch (error) {
+//       console.log('Polling for image...', error);
+//     }
 
-    retries++;
-    await new Promise<void>((resolve) => {
-      setTimeout(() => {
-        resolve();
-      }, 2000);
-    });
-  }
+//     retries++;
+//     await new Promise<void>((resolve) => {
+//       setTimeout(() => {
+//         resolve();
+//       }, 2000);
+//     });
+//   }
 
-  throw new Error('Timeout waiting for new image');
-};
+//   throw new Error('Timeout waiting for new image');
+// };
 
 // Main Component
 const Comfy = memo(() => {
@@ -151,7 +153,9 @@ const Comfy = memo(() => {
 
       setIsLoading(true);
       try {
-        const response = await fetch('http://127.0.0.1:8188/prompt', {
+        message.loading('Generating image... Please wait');
+
+        const response = await fetch('/api/generate-image', {
           body: requestBody,
           headers: {
             'Content-Type': 'application/json',
@@ -160,34 +164,21 @@ const Comfy = memo(() => {
         });
 
         if (!response.ok) {
-          throw new Error(`HTTP Error ${response.status}`);
+          throw new Error('Failed to generate image');
         }
 
-        await response.json();
-        message.loading('Generating image... Please wait');
+        const data = await response.json();
 
-        const imageName = `generated_${Date.now()}.png`;
-        const dynamicImageUrl = `/api/serve-image?name=${encodeURIComponent(imageName)}`;
-        const markdownImage = `![Generated Image](${dynamicImageUrl})`;
+        if (data.success) {
+          const markdownImage = `![Generated Image](${data.imageUrl})`;
 
-        const imageUrl = await pollForImage();
-        console.log('Success:', imageUrl);
-        message.success('Image generated successfully!');
-
-        const saveImageResponse = await fetch('/api/save-image', {
-          body: JSON.stringify({ imageName, imageUrl }),
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          method: 'POST',
-        });
-
-        if (!saveImageResponse.ok) {
-          throw new Error('Failed to save the image');
+          message.success('Image generated successfully!');
+          updateInputMessage(markdownImage);
+          await addAIMessage();
+          updateInputMessage('');
+        } else {
+          throw new Error(data.error || 'Unknown error occurred');
         }
-        updateInputMessage(markdownImage);
-        await addAIMessage();
-        updateInputMessage('');
       } catch (error) {
         console.error('Error:', error);
         message.error('Failed to generate or save image.');
@@ -195,7 +186,7 @@ const Comfy = memo(() => {
         setIsLoading(false);
       }
     }
-  }, [promptData, inputMessage, addAIMessage, updateInputMessage, apiUrl]);
+  }, [promptData, inputMessage, addAIMessage, updateInputMessage]);
 
   const handleApiChange = (value: string) => {
     setApiUrl(value);
@@ -243,3 +234,15 @@ const Comfy = memo(() => {
 });
 
 export default Comfy;
+
+//GIVE UP ON THAT... USE THIS HACK IN NODE INSTEAD (included in lobechat save image)
+// const freeVramHackPromptBody = '{ prompt: {"3":{"inputs":{"text":"free VRAM hack"},"class_type":"Bjornulf_WriteText","_meta":{"title":"✒ Write Text"}},"4":{"inputs":{"text_value":["3",0],"text":"free VRAM hack"},"class_type":"Bjornulf_ShowText","_meta":{"title":"👁 Show (Text)"}}} }';
+// await fetch(COMFYUI_URL + '/prompt', {
+//   body: freeVramHackPromptBody,
+//   headers: {
+//     'Content-Type': 'application/json',
+//   },
+//   method: 'POST',
+// });
+//Free ram hack :
+// curl -X POST http://localhost:8188/prompt -H "Content-Type: application/json" -d '{"prompt":{"3":{"inputs":{"text":"free VRAM hack"},"class_type":"Bjornulf_WriteText","_meta":{"title":"✒ Write Text"}},"4":{"inputs":{"text_value":["3",0],"text":"free VRAM hack"},"class_type":"Bjornulf_ShowText","_meta":{"title":"👁 Show (Text)"}}}}'

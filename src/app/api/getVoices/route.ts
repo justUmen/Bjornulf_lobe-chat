@@ -68,7 +68,7 @@ export async function GET(request: NextRequest) {
             // console.log(`No .wav files found for ${languageCode}`);
           }
         } else {
-          console.log(`Unknown language folder: ${languageCode}`);
+          // console.log(`Unknown language folder: ${languageCode}`);
         }
       }
     }
@@ -76,7 +76,7 @@ export async function GET(request: NextRequest) {
     console.error('Error reading voices directory:', error);
   }
 
-  console.log('Final voices object:', voices);
+  // console.log('Final voices object:', voices);
   return NextResponse.json(
     { voices },
     {

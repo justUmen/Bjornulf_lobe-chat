@@ -1,7 +1,7 @@
 {
   "47": {
     "inputs": {
-      "ckpt_name": "SDXL/realcartoonXL_v6.safetensors"
+      "ckpt_name": "SDXL/dreamshaperXL_alpha2Xl10.safetensors"
     },
     "class_type": "CheckpointLoaderSimple",
     "_meta": {

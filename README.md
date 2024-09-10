@@ -1,12 +1,14 @@
 # Based on lobe-chat v1.15.9
 
-Original project : <https://github.com/lobehub/lobe-chat>\\
+Run several types of Ai on your local computer.
+
+Original project : <https://github.com/lobehub/lobe-chat>
 
 Mine uses :
 
-- lobe-chat + comfyui + xttsv2 + custom backgrounds + (postgresql + minio)\\
-- Recommended : Use `PostgreSQL` for storage of chat history and `minio` for storage of files.\\
-- Github for user authentication.
+- lobe-chat + comfyui + xttsv2 + custom backgrounds + (postgresql + minio)
+- Recommended : Use `PostgreSQL` for storage of chat history and `minio` for storage of files.
+- Github (app/oauth) for user authentication.
 
 ## 🚀 My fork features :
 
@@ -15,6 +17,7 @@ Mine uses :
 🏠 Quick and dirty fork to enable lobe-chat to send ComfyUI api request + receive image link.\
 You need to use Comfyui of course, but also my Comfyui custom nodes : <https://github.com/justUmen/ComfyUI-BjornulfNodes>\
 ⚠ For now my comfyui images are NOT stored with minio, just in public folder... ⚠\
+If you want to use Comfyui remotely (like a phone on local network), you need to launch ComfyUI with `python main.py --listen 0.0.0.0`.\
 ![Comfyui](screenshots/screenshot.png)
 
 ### 2 - 🗣️ Local Text-to-Speech with the voice you want (2 included)
@@ -47,7 +50,6 @@ Example for `http://localhost:3210/chat?agent=&session=ssn_W6hB1fM2y4fK`, image 
 - \[comfyui] If used with LLM, Comfyui also sends the local image link as useless tokens. (Not a huge waste, but a waste nevertheless.)
 - \[comfyui] Use minio for storage of comfyui images.
 - \[comfyui] Optimize loading time of comfyui images.
-- \[comfyui] Store and save options, like current json...
 
 ## 0 - Lobe-chat installation (for example with bun, but can use npm or whatever...)
 
@@ -234,6 +236,15 @@ S3_SECRET_ACCESS_KEY=minioadmin
 S3_BUCKET=lobechat
 S3_ENDPOINT=http://localhost:9000
 S3_PUBLIC_DOMAIN=http://localhost:9000
+
+########################################
+########### Xtra Bjornulf ##############
+########################################
+
+NEXT_PUBLIC_COMFYUI_URL=http://127.0.0.1:8188
+
+#Use the ip of your computer if you also want to use ComfyUI remotely (Your ip should be static of course, like in your router DHCP configuration.)
+#NEXT_PUBLIC_COMFYUI_URL=http://192.168.1.55:8188
 ```
 
 # How to Prepare to login using github
@@ -292,3 +303,47 @@ StartupWMClass=kitty_xtts
 - What about PostgreSQL ?\
   For me PostgreSQL is running all the time, just run once `sudo systemctl enable postgresql` and `sudo systemctl start postgresql`.\
   The server will be available on `localhost:5432` and the database `lobe_chat_db` will be used by lobe-chat.
+
+# FAQ : Frequently Asked Questions
+
+## 1 - How to connect from another device on my local network ? (wifi)
+
+### Example here using your phone to connect to your computer lobe-chat server :
+
+Well... for that you will have to know the IP of your computer (that is running lobe-chat) on the local network. (You can run `ip addr` in console, you should see something like `inet 192.168.1.xx/24`.)\
+Let's say it's `192.168.1.55`, you can go on this URL from your phone : `http://192.168.1.55:3210`.\
+When you try to connect/login with github, the app will give you an authentification link to `http://localhost:3210`. (Which won't work on phone.)\
+BUT !!! After the request to login failed, you can keep the same link but manually change `localhost` in the URL into `192.168.1.55` and send the request again.\
+After that you should be able to go back to `http://192.168.1.55:3210` and you should be connected.\
+You won't have to login again, the token should be stored in the browser.
+
+But... ollama won't work, because it is sending request to localhost...\
+You will have to configure ollama to not send requests to localhost, but to this IP instead. (It will still work localy of course because `192.168.1.55` can access `192.168.1.55`, duh.)\
+In the lobe-chat Settings, in "Language Model", you will find the default URL for ollama, it should be : `http://localhost:11434`\
+You can change that to `http://192.168.1.55:11434`. (You can test by clicking the button below "Check")\\
+
+On linux, to access that properly you need to edit the ollama config file `/etc/systemd/system/ollama.service`, here is mine :
+
+```
+[Unit]
+Description=Ollama Service
+After=network-online.target
+
+[Service]
+ExecStart=/usr/local/bin/ollama serve
+User=umen
+Group=umen
+Restart=always
+RestartSec=3
+Environment="PATH=/home/umen/.bun/bin:/home/umen/bin:/usr/local/cuda-12.3/bin:/home/umen/.symfony5/bin:/home/umen/.nvm/versions/node/v21.7.0/bin:/home/umen/.nvm/versions/node/v21.7.0/bin:/home/umen/anaconda3/bin:/home/umen/.gem/ruby/2.4.0/bin:/home/umen/bin:/usr/local/bin:/usr/bin:/home/umen/.local/share/zinit/plugins/starship---starship:/home/umen/.local/share/zinit/polaris/bin:/home/umen/.bun/bin:/home/umen/bin:/usr/local/cuda-12.3/bin:/home/umen/.symfony5/bin:/home/umen/miniconda3/bin:/home/umen/miniconda3/condabin:/home/umen/.nvm/versions/node/v21.7.0/bin:/home/umen/anaconda3/bin:/home/umen/.gem/ruby/2.4.0/bin:/home/umen/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/umen/.cargo/bin:/opt/wine-stable/bin:/home/umen/.local/bin:/home/umen/.fzf/bin:/home/umen/.cargo/bin:/opt/wine-stable/bin:/home/umen/.local/bin"
+Environment="OLLAMA_MODELS=/mnt/1To_linux/1To/for_ollama"
+Environment="OLLAMA_ORIGINS=*"
+Environment="OLLAMA_HOST=192.168.1.55"
+
+[Install]
+WantedBy=default.target
+```
+
+You don't need all my things, notice that i run ollama with `umen` user... Also don't use my `PATH` lol.\
+But you can inspire yourself from this file. (You probably just need `OLLAMA_HOST` and `OLLAMA_ORIGINS`)\
+After changing this file, you need to do `sudo systemctl daemon-reload` and restart the service with `sudo systemctl restart ollama`.\\
