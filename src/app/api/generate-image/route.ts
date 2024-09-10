@@ -54,6 +54,12 @@ async function saveImage(imageUrl: string, imageName: string) {
   const imagePath = path.join(publicDir, 'generated', imageName);
 
   await fs.mkdir(path.dirname(imagePath), { recursive: true });
+
+  // Wait for 3 seconds, no choice to avoid half images for now
+  await new Promise((resolve) => {
+    setTimeout(resolve, 3000);
+  });
+
   await fs.writeFile(imagePath, buffer);
 
   return `/api/serve-image?name=${imageName}`;
