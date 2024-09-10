@@ -313,8 +313,8 @@ StartupWMClass=kitty_xtts
 Well... for that you will have to know the IP of your computer (that is running lobe-chat) on the local network. (You can run `ip addr` in console, you should see something like `inet 192.168.1.xx/24`.)\
 Let's say it's `192.168.1.55`, you can go on this URL from your phone : `http://192.168.1.55:3210`.\
 When you try to connect/login with github, the app will give you an authentification link to `http://localhost:3210`. (Which won't work on phone.)\
-BUT !!! After the request to login failed, you can keep the same link but manually change `localhost` in the URL into `192.168.1.55` and send the request again.\
-After that you should be able to go back to `http://192.168.1.55:3210` and you should be connected.\
+BUT !!! After the request to login failed, you can keep the same link (with code and stuff) but manually change `localhost` in the URL into `192.168.1.55` and send the request again.\
+It will look like it failed again, but just go back to `http://192.168.1.55:3210`, try to connect again and you should be connected.\
 You won't have to login again, the token should be stored in the browser.
 
 But... ollama won't work, because it is sending request to localhost...\
