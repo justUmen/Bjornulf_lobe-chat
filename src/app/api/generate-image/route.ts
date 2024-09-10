@@ -42,6 +42,11 @@ async function pollForImage(timeout = 60_000) {
 }
 
 async function saveImage(imageUrl: string, imageName: string) {
+  // Wait for 3 seconds, no choice to avoid half images for now
+  await new Promise((resolve) => {
+    setTimeout(resolve, 3000);
+  });
+
   const imageResponse = await fetch(imageUrl);
   if (!imageResponse.ok) {
     throw new Error(`Failed to fetch image: ${imageResponse.statusText}`);
@@ -54,11 +59,6 @@ async function saveImage(imageUrl: string, imageName: string) {
   const imagePath = path.join(publicDir, 'generated', imageName);
 
   await fs.mkdir(path.dirname(imagePath), { recursive: true });
-
-  // Wait for 3 seconds, no choice to avoid half images for now
-  await new Promise((resolve) => {
-    setTimeout(resolve, 3000);
-  });
 
   await fs.writeFile(imagePath, buffer);
 
