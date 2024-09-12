@@ -72,7 +72,9 @@ const Comfy = memo(() => {
   // State
   const [promptData, setPromptData] = useState<PromptData | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [apiUrl, setApiUrl] = useState(() => localStorage.getItem('selectedApi') || 'sdxl');
+  const [apiUrl, setApiUrl] = useState(
+    () => localStorage.getItem('selectedApi') || 'sd1.5_picxReal_10',
+  );
   const [showApiSelect, setShowApiSelect] = useState(false);
   const [availableApis, setAvailableApis] = useState<string[]>([]);
 
@@ -170,10 +172,15 @@ const Comfy = memo(() => {
         const data = await response.json();
 
         if (data.success) {
-          const markdownImage = `![Generated Image](${data.imageUrl})`;
+          // const text_of_image = "Image : " + inputMessage;
+          const text_of_image = 'Prompt:' + inputMessage;
+          const markdownImage = `![Generated Image](${data.imageUrl})\n${text_of_image}`;
 
+          // updateInputMessage("New image : " + inputMessage);
           message.success('Image generated successfully!');
           updateInputMessage(markdownImage);
+          // await addAIMessage();
+          // updateInputMessage(text_of_image);
           await addAIMessage();
           updateInputMessage('');
         } else {

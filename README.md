@@ -1,4 +1,4 @@
-# Based on lobe-chat v1.16.8
+# Bjornulf chat v0.1, Based on lobe-chat v1.16.8
 
 Run several types of Ai on your local computer.
 
