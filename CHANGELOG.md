@@ -2,6 +2,275 @@
 
 # Changelog
 
+### [Version 1.16.8](https://github.com/lobehub/lobe-chat/compare/v1.16.7...v1.16.8)
+
+<sup>Released on **2024-09-12**</sup>
+
+#### 💄 Styles
+
+- **misc**: Improve models and add more info for providers and models.
+
+<br/>
+
+<details>
+<summary><kbd>Improvements and Fixes</kbd></summary>
+
+#### Styles
+
+- **misc**: Improve models and add more info for providers and models, closes [#3911](https://github.com/lobehub/lobe-chat/issues/3911) ([8a8fc6a](https://github.com/lobehub/lobe-chat/commit/8a8fc6a))
+
+</details>
+
+<div align="right">
+
+[![](https://img.shields.io/badge/-BACK_TO_TOP-151515?style=flat-square)](#readme-top)
+
+</div>
+
+### [Version 1.16.7](https://github.com/lobehub/lobe-chat/compare/v1.16.6...v1.16.7)
+
+<sup>Released on **2024-09-11**</sup>
+
+#### 💄 Styles
+
+- **misc**: Optimize model token display method.
+
+<br/>
+
+<details>
+<summary><kbd>Improvements and Fixes</kbd></summary>
+
+#### Styles
+
+- **misc**: Optimize model token display method, closes [#3697](https://github.com/lobehub/lobe-chat/issues/3697) ([249795c](https://github.com/lobehub/lobe-chat/commit/249795c))
+
+</details>
+
+<div align="right">
+
+[![](https://img.shields.io/badge/-BACK_TO_TOP-151515?style=flat-square)](#readme-top)
+
+</div>
+
+### [Version 1.16.6](https://github.com/lobehub/lobe-chat/compare/v1.16.5...v1.16.6)
+
+<sup>Released on **2024-09-11**</sup>
+
+#### 🐛 Bug Fixes
+
+- **misc**: Pin `next@14.2.8` to fix Internal error.
+
+<br/>
+
+<details>
+<summary><kbd>Improvements and Fixes</kbd></summary>
+
+#### What's fixed
+
+- **misc**: Pin `next@14.2.8` to fix Internal error, closes [#3905](https://github.com/lobehub/lobe-chat/issues/3905) ([1013652](https://github.com/lobehub/lobe-chat/commit/1013652))
+
+</details>
+
+<div align="right">
+
+[![](https://img.shields.io/badge/-BACK_TO_TOP-151515?style=flat-square)](#readme-top)
+
+</div>
+
+### [Version 1.16.5](https://github.com/lobehub/lobe-chat/compare/v1.16.4...v1.16.5)
+
+<sup>Released on **2024-09-11**</sup>
+
+<br/>
+
+<details>
+<summary><kbd>Improvements and Fixes</kbd></summary>
+
+</details>
+
+<div align="right">
+
+[![](https://img.shields.io/badge/-BACK_TO_TOP-151515?style=flat-square)](#readme-top)
+
+</div>
+
+### [Version 1.16.4](https://github.com/lobehub/lobe-chat/compare/v1.16.3...v1.16.4)
+
+<sup>Released on **2024-09-11**</sup>
+
+#### 💄 Styles
+
+- **ui**: Improve UI layout and text.
+
+<br/>
+
+<details>
+<summary><kbd>Improvements and Fixes</kbd></summary>
+
+#### Styles
+
+- **ui**: Improve UI layout and text, closes [#3762](https://github.com/lobehub/lobe-chat/issues/3762) ([7c08f29](https://github.com/lobehub/lobe-chat/commit/7c08f29))
+
+</details>
+
+<div align="right">
+
+[![](https://img.shields.io/badge/-BACK_TO_TOP-151515?style=flat-square)](#readme-top)
+
+</div>
+
+### [Version 1.16.3](https://github.com/lobehub/lobe-chat/compare/v1.16.2...v1.16.3)
+
+<sup>Released on **2024-09-11**</sup>
+
+#### 🐛 Bug Fixes
+
+- **misc**: Add `LLM_VISION_IMAGE_USE_BASE64` to support local s3 in vision model.
+
+<br/>
+
+<details>
+<summary><kbd>Improvements and Fixes</kbd></summary>
+
+#### What's fixed
+
+- **misc**: Add `LLM_VISION_IMAGE_USE_BASE64` to support local s3 in vision model, closes [#3887](https://github.com/lobehub/lobe-chat/issues/3887) ([16e57ed](https://github.com/lobehub/lobe-chat/commit/16e57ed))
+
+</details>
+
+<div align="right">
+
+[![](https://img.shields.io/badge/-BACK_TO_TOP-151515?style=flat-square)](#readme-top)
+
+</div>
+
+### [Version 1.16.2](https://github.com/lobehub/lobe-chat/compare/v1.16.1...v1.16.2)
+
+<sup>Released on **2024-09-11**</sup>
+
+#### 💄 Styles
+
+- **misc**: Update Upstage model list.
+
+<br/>
+
+<details>
+<summary><kbd>Improvements and Fixes</kbd></summary>
+
+#### Styles
+
+- **misc**: Update Upstage model list, closes [#3890](https://github.com/lobehub/lobe-chat/issues/3890) ([82e2570](https://github.com/lobehub/lobe-chat/commit/82e2570))
+
+</details>
+
+<div align="right">
+
+[![](https://img.shields.io/badge/-BACK_TO_TOP-151515?style=flat-square)](#readme-top)
+
+</div>
+
+### [Version 1.16.1](https://github.com/lobehub/lobe-chat/compare/v1.16.0...v1.16.1)
+
+<sup>Released on **2024-09-10**</sup>
+
+#### 💄 Styles
+
+- **misc**: Reorder the provider list, update spark check model to spark-lite & default disable useless model.
+
+<br/>
+
+<details>
+<summary><kbd>Improvements and Fixes</kbd></summary>
+
+#### Styles
+
+- **misc**: Reorder the provider list, closes [#3886](https://github.com/lobehub/lobe-chat/issues/3886) ([4d641f5](https://github.com/lobehub/lobe-chat/commit/4d641f5))
+- **misc**: Update spark check model to spark-lite & default disable useless model, closes [#3885](https://github.com/lobehub/lobe-chat/issues/3885) ([9d7e47c](https://github.com/lobehub/lobe-chat/commit/9d7e47c))
+
+</details>
+
+<div align="right">
+
+[![](https://img.shields.io/badge/-BACK_TO_TOP-151515?style=flat-square)](#readme-top)
+
+</div>
+
+## [Version 1.16.0](https://github.com/lobehub/lobe-chat/compare/v1.15.35...v1.16.0)
+
+<sup>Released on **2024-09-10**</sup>
+
+#### ✨ Features
+
+- **misc**: Add Fireworks AI Model Provider, Add Spark model provider.
+
+<br/>
+
+<details>
+<summary><kbd>Improvements and Fixes</kbd></summary>
+
+#### What's improved
+
+- **misc**: Add Fireworks AI Model Provider, closes [#3392](https://github.com/lobehub/lobe-chat/issues/3392) [#48](https://github.com/lobehub/lobe-chat/issues/48) ([fa0d84d](https://github.com/lobehub/lobe-chat/commit/fa0d84d))
+- **misc**: Add Spark model provider, closes [#3098](https://github.com/lobehub/lobe-chat/issues/3098) [#25](https://github.com/lobehub/lobe-chat/issues/25) ([fc85c20](https://github.com/lobehub/lobe-chat/commit/fc85c20))
+
+</details>
+
+<div align="right">
+
+[![](https://img.shields.io/badge/-BACK_TO_TOP-151515?style=flat-square)](#readme-top)
+
+</div>
+
+### [Version 1.15.35](https://github.com/lobehub/lobe-chat/compare/v1.15.34...v1.15.35)
+
+<sup>Released on **2024-09-10**</sup>
+
+#### 💄 Styles
+
+- **misc**: Update CustomLogo.
+
+<br/>
+
+<details>
+<summary><kbd>Improvements and Fixes</kbd></summary>
+
+#### Styles
+
+- **misc**: Update CustomLogo, closes [#3874](https://github.com/lobehub/lobe-chat/issues/3874) ([dd7c8df](https://github.com/lobehub/lobe-chat/commit/dd7c8df))
+
+</details>
+
+<div align="right">
+
+[![](https://img.shields.io/badge/-BACK_TO_TOP-151515?style=flat-square)](#readme-top)
+
+</div>
+
+### [Version 1.15.34](https://github.com/lobehub/lobe-chat/compare/v1.15.33...v1.15.34)
+
+<sup>Released on **2024-09-10**</sup>
+
+#### ♻ Code Refactoring
+
+- **misc**: Change empty content stream behavior.
+
+<br/>
+
+<details>
+<summary><kbd>Improvements and Fixes</kbd></summary>
+
+#### Code refactoring
+
+- **misc**: Change empty content stream behavior, closes [#3883](https://github.com/lobehub/lobe-chat/issues/3883) ([e910f68](https://github.com/lobehub/lobe-chat/commit/e910f68))
+
+</details>
+
+<div align="right">
+
+[![](https://img.shields.io/badge/-BACK_TO_TOP-151515?style=flat-square)](#readme-top)
+
+</div>
+
 ### [Version 1.15.33](https://github.com/lobehub/lobe-chat/compare/v1.15.32...v1.15.33)
 
 <sup>Released on **2024-09-10**</sup>

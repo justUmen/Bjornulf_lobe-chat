@@ -1,6 +1,6 @@
 import { ModelProviderCard } from '@/types/llm';
 
-// ref https://help.aliyun.com/zh/dashscope/developer-reference/api-details
+// ref :https://help.aliyun.com/zh/dashscope/developer-reference/api-details
 const Qwen: ModelProviderCard = {
   chatModels: [
     {
@@ -62,7 +62,7 @@ const Qwen: ModelProviderCard = {
       tokens: 32_768,
       vision: true,
     },
-    // ref https://help.aliyun.com/zh/dashscope/developer-reference/tongyi-qianwen-7b-14b-72b-api-detailes
+    // ref :https://help.aliyun.com/zh/dashscope/developer-reference/tongyi-qianwen-7b-14b-72b-api-detailes
     {
       description: '通义千问2对外开源的7B规模的模型',
       displayName: 'Qwen2 7B',
@@ -103,10 +103,18 @@ const Qwen: ModelProviderCard = {
     },
   ],
   checkModel: 'qwen-turbo',
-  disableBrowserRequest: true, // CORS issue
+  description:
+    '通义千问是阿里云自主研发的超大规模语言模型，具有强大的自然语言理解和生成能力。它可以回答各种问题、创作文字内容、表达观点看法、撰写代码等，在多个领域发挥作用。',
+  disableBrowserRequest: true,
   id: 'qwen',
   modelList: { showModelFetcher: true },
+  modelsUrl: 'https://help.aliyun.com/zh/dashscope/developer-reference/api-details',
   name: 'Qwen',
+  smoothing: {
+    speed: 2,
+    text: true,
+  },
+  url: 'https://tongyi.aliyun.com',
 };
 
 export default Qwen;

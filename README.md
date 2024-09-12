@@ -1,4 +1,4 @@
-# Based on lobe-chat v1.15.33
+# Based on lobe-chat v1.16.8
 
 Run several types of Ai on your local computer.
 
@@ -15,7 +15,7 @@ Mine uses :
 ### 1 - 🎨 Generate Images with ComfyUI
 
 🏠 Quick and dirty fork to enable lobe-chat to send ComfyUI api request + receive image link.\
-You need to use Comfyui of course, but also my Comfyui custom nodes : <https://github.com/justUmen/ComfyUI-BjornulfNodes>\
+You need to use Comfyui of course, but also my Comfyui custom nodes : <https://github.com/justUmen/ComfyUI-BjornulgitfNodes>\
 ⚠ For now my comfyui images are NOT stored with minio, just in public folder... ⚠\
 If you want to use Comfyui remotely (like a phone on local network), you need to launch ComfyUI with `python main.py --listen 0.0.0.0`.\
 ![Comfyui](screenshots/screenshot.png)
