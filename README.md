@@ -236,15 +236,6 @@ S3_SECRET_ACCESS_KEY=minioadmin
 S3_BUCKET=lobechat
 S3_ENDPOINT=http://localhost:9000
 S3_PUBLIC_DOMAIN=http://localhost:9000
-
-########################################
-########### Xtra Bjornulf ##############
-########################################
-
-NEXT_PUBLIC_COMFYUI_URL=http://127.0.0.1:8188
-
-#Use the ip of your computer if you also want to use ComfyUI remotely (Your ip should be static of course, like in your router DHCP configuration.)
-#NEXT_PUBLIC_COMFYUI_URL=http://192.168.1.55:8188
 ```
 
 # How to Prepare to login using github
@@ -346,4 +337,5 @@ WantedBy=default.target
 
 You don't need all my things, notice that i run ollama with `umen` user... Also don't use my `PATH` lol.\
 But you can inspire yourself from this file. (You probably just need `OLLAMA_HOST` and `OLLAMA_ORIGINS`)\
-After changing this file, you need to do `sudo systemctl daemon-reload` and restart the service with `sudo systemctl restart ollama`.\\
+After changing this file, you need to do `sudo systemctl daemon-reload` and restart the service with `sudo systemctl restart ollama`.\
+You might need to add to your .bashrc or .zshc... : `export OLLAMA_HOST=http://192.168.1.37:11434`
