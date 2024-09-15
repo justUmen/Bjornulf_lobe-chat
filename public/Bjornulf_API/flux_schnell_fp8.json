@@ -1,7 +1,7 @@
 {
   "26:0": {
     "inputs": {
-      "clip_name1": "t5xxl_fp16.safetensors",
+      "clip_name1": "t5xxl_fp8_e4m3fn.safetensors",
       "clip_name2": "clip_l.safetensors",
       "type": "flux"
     },
@@ -13,7 +13,7 @@
   "26:1": {
     "inputs": {
       "unet_name": "flux1-schnell.safetensors",
-      "weight_dtype": "fp8_e5m2"
+      "weight_dtype": "fp8_e4m3fn"
     },
     "class_type": "UNETLoader",
     "_meta": {

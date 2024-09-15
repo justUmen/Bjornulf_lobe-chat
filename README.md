@@ -1,4 +1,4 @@
-# Bjornulf chat v0.1, Based on lobe-chat v1.16.8
+# Bjornulf chat v0.2, Based on lobe-chat v1.17.4
 
 Run several types of Ai on your local computer.
 
@@ -219,8 +219,8 @@ KEY_VAULTS_SECRET=MgMzt2U+lKwSCN9enMYmyvVRTFzsb60db8127035
 NEXT_AUTH_SECRET=RDD/HFZTSufylb61eb1117095t3KuO1FrHnviMATqAa=
 
 NEXT_AUTH_SSO_PROVIDERS=github
-GITHUB_CLIENT_ID=Iw22lx1kdsIoieHxufr
-GITHUB_CLIENT_SECRET=25b7fff7a0ads6c63e2e5d19c7adqzcbdb1217075
+AUTH_GITHUB_ID=Iw22lx1kdsIoieHxufr
+AUTH_GITHUB_SECRET=25b7fff7a0ads6c63e2e5d19c7adqzcbdb1217075
 
 APP_URL=http://localhost:3210
 

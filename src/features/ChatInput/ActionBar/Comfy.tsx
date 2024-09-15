@@ -173,7 +173,7 @@ const Comfy = memo(() => {
 
         if (data.success) {
           // const text_of_image = "Image : " + inputMessage;
-          const text_of_image = 'Prompt:' + inputMessage;
+          const text_of_image = inputMessage;
           const markdownImage = `![Generated Image](${data.imageUrl})\n${text_of_image}`;
 
           // updateInputMessage("New image : " + inputMessage);
