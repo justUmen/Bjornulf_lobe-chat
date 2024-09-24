@@ -1,12 +1,20 @@
 import { ActionIcon, Modal } from '@lobehub/ui';
 import { Select, message } from 'antd';
-import { Camera, Settings } from 'lucide-react';
+import { Camera, Settings, Trash } from 'lucide-react';
 import { memo, useCallback, useEffect, useState } from 'react';
 
+import { useAgentStore } from '@/store/agent';
+import { agentSelectors } from '@/store/agent/selectors';
 import { useChatStore } from '@/store/chat';
 import { chatSelectors } from '@/store/chat/selectors';
+import { useUserStore } from '@/store/user';
+import { keyVaultsConfigSelectors } from '@/store/user/selectors';
 
 import BjornulfVoices from './BjornulfVoices';
+
+// import { Ollama as OllamaBrowser } from 'ollama/browser';
+// import { ollamaService } from '@/services/ollama';
+// import ollama from 'ollama'
 
 // Types
 interface Inputs {
@@ -85,6 +93,63 @@ const Comfy = memo(() => {
     s.updateInputMessage,
   ]);
   const addAIMessage = useChatStore((s) => s.addAIMessage);
+
+  // Function to abort the Ollama request and free VRAM
+  // const freeVramOllama = useCallback(() => {
+  //   try {
+  //     // Initialize OllamaBrowser only when the button is clicked
+  //     const config = keyVaultsConfigSelectors.ollamaConfig(useUserStore.getState());
+  //     const ollamaClient = new OllamaBrowser({ host: config.baseURL });
+
+  //     // Call abort to free VRAM
+  //     ollamaClient.abort();
+  //     console.log('Ollama request aborted, VRAM freed.');
+  //     message.success('Ollama VRAM successfully cleared!');
+  //   } catch (error) {
+  //     console.error('Failed to free Ollama VRAM:', error);
+  //     message.error('Failed to clear Ollama VRAM.');
+  //   }
+  // }, []);
+
+  const freeVramOllama = useCallback(() => {
+    console.log('freeVramOllama called');
+
+    async function freeVram() {
+      try {
+        const model = agentSelectors.currentAgentModel(useAgentStore.getState());
+        console.log('freeVram function started');
+        const config = keyVaultsConfigSelectors.ollamaConfig(useUserStore.getState());
+        const baseURL = config.baseURL || 'http://127.0.0.1:11434';
+
+        // Get the current model from the agent store
+
+        console.log('Using baseURL:', baseURL);
+        console.log('Using model:', model);
+
+        const response = await fetch('/api/free_vram_ollama', {
+          body: JSON.stringify({ baseURL, model }),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          method: 'POST',
+        });
+
+        console.log('Response received:', response.status);
+
+        const data = await response.json();
+        if (!response.ok) {
+          throw new Error(
+            `HTTP error! status: ${response.status}, message: ${JSON.stringify(data)}`,
+          );
+        }
+        console.log('VRAM freed successfully:', data);
+      } catch (error) {
+        console.error('Error freeing Ollama VRAM:', error);
+      }
+    }
+
+    freeVram();
+  }, []);
 
   // API Functions
   const fetchAvailableApis = useCallback(async () => {
@@ -208,6 +273,12 @@ const Comfy = memo(() => {
         isLoading={false}
         onLanguageSelect={(language) => console.log('Selected language:', language)}
         onVoiceSelect={(voice) => console.log('Selected voice:', voice)}
+      />
+      <ActionIcon
+        icon={Trash}
+        onClick={() => freeVramOllama()}
+        style={{ marginLeft: '10px' }}
+        title={`[Bjornulf] Free Ollama VRAM (${agentSelectors.currentAgentModel(useAgentStore.getState())})`}
       />
       <ActionIcon
         icon={Camera}

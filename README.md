@@ -1,4 +1,11 @@
-# Bjornulf chat v0.2, Based on lobe-chat v1.17.4
+# Bjornulf chat v0.3, Based on lobe-chat v1.19.23
+
+## Changelogs :
+
+**_v0.2_** : much better interface to select Comfyui worklows + add tts voices/language selection.\
+**_v0.3_** : update to lobe-chat v1.19.23 + add Ollama VRAM cleanup button.\\
+
+## Introduction :
 
 Run several types of Ai on your local computer.
 
@@ -11,6 +18,11 @@ Mine uses :
 - Github (app/oauth) for user authentication.
 
 ## 🚀 My fork features :
+
+.1 - 🎨 Generate Images with ComfyUI\
+.2 - 🗣️ Local Text-to-Speech with the voice you want (2 included)\
+.3 - 🌈 Custom Backgrounds\
+.4 - 🦙 Button to Clean-up Ollama VRAM usage
 
 ### 1 - 🎨 Generate Images with ComfyUI
 
@@ -43,6 +55,13 @@ Just check the URL of the lobe-chat, and use the session id as the name of the i
 Example for `http://localhost:3210/chat?agent=&session=ssn_W6hB1fM2y4fK`, image should be `public/Bjornulf_backgrounds/ssn_W6hB1fM2y4fK.png`\
 ⚠ Require restart to take effect ⚠\
 ![Background](screenshots/screenshot2.png)
+
+### 4 - 🦙 Button to Clean-up Ollama VRAM usage
+
+Add a button to free VRAM usage of the current model from the local Ollama server.\
+Very useful, especially if you want to generate an image with ComfyUI : Just free up your VRAM first !\\
+
+![Background](screenshots/free_vram.png)
 
 ## 📝 To do :
 

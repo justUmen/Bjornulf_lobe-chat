@@ -2,6 +2,7 @@ import Auth0 from './auth0';
 import Authelia from './authelia';
 import Authentik from './authentik';
 import AzureAD from './azure-ad';
+import Casdoor from './casdoor';
 import CloudflareZeroTrust from './cloudflare-zero-trust';
 import GenericOIDC from './generic-oidc';
 import Github from './github';
@@ -18,4 +19,5 @@ export const ssoProviders = [
   Authelia,
   Logto,
   CloudflareZeroTrust,
+  Casdoor,
 ];
