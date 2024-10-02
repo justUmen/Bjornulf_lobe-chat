@@ -1,17 +1,25 @@
-# Bjornulf chat v0.3, Based on lobe-chat v1.19.23
+# 💬 Bjornulf chat v0.3, Based on lobe-chat v1.19.23 💬
+
+Talk to several types of Ai on your local computer. (local and remote, ollama, openai, etc...)
+
+Original project : <https://github.com/lobehub/lobe-chat>
+
+# Coffee : ☕☕☕☕☕ 5/5
+
+❤️ <https://ko-fi.com/bjornulf> ❤️
+
+# ☘ This project is a component of my integrated AI trio. ☘
+
+<u>**1 - 📝 Text/Chat AI generation : [Bjornulf Lobe Chat Fork](https://github.com/justUmen/Bjornulf_lobe-chat) (you are here)</u>\
+2 - 🔊 Speech AI generation** : [Bjornulf Text To Speech](https://github.com/justUmen/Bjornulf_XTTS)\
+3 - 🎨 Image AI generation : [Bjornulf Comfyui custom nodes](https://github.com/justUmen/ComfyUI-BjornulfNodes)
 
 ## Changelogs :
 
 **_v0.2_** : much better interface to select Comfyui worklows + add tts voices/language selection.\
-**_v0.3_** : update to lobe-chat v1.19.23 + add Ollama VRAM cleanup button.\\
+**_v0.3_** : update to lobe-chat v1.19.23 + add Ollama VRAM cleanup button.
 
 ## Introduction :
-
-Run several types of Ai on your local computer.
-
-Original project : <https://github.com/lobehub/lobe-chat>
-
-Mine uses :
 
 - lobe-chat + comfyui + xttsv2 + custom backgrounds + (postgresql + minio)
 - Recommended : Use `PostgreSQL` for storage of chat history and `minio` for storage of files.
