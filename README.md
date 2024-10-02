@@ -6,7 +6,7 @@ Original project : <https://github.com/lobehub/lobe-chat>
 
 # Coffee : ☕☕☕☕☕ 5/5
 
-❤️ <https://ko-fi.com/bjornulf> ❤️
+❤️❤️❤️ <https://ko-fi.com/bjornulf> ❤️❤️❤️
 
 # ☘ This project is a component of my integrated AI trio. ☘
 
