@@ -8,7 +8,7 @@ Original project : <https://github.com/lobehub/lobe-chat>
 
 ❤️❤️❤️ <https://ko-fi.com/bjornulf> ❤️❤️❤️
 
-# ☘ This project is a component of my integrated AI trio. ☘
+# ☘ This project is part of my AI trio. ☘
 
 <u>**1 - 📝 Text/Chat AI generation** : [Bjornulf Lobe Chat Fork](https://github.com/justUmen/Bjornulf_lobe-chat) (you are here)</u>\
 2 - 🔊 Speech AI generation : [Bjornulf Text To Speech](https://github.com/justUmen/Bjornulf_XTTS)\
